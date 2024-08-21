@@ -18,6 +18,7 @@ const spaceGrotesk = SpaceGrotesk({
 export const metadata: Metadata = {
 	title: 'Startup - Next.js',
 	description: 'Startup Next.js project',
+	icons: { icon: '/logo.svg' },
 }
 
 function RootLayout({ children }: ChildProps) {
