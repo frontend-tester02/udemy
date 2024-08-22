@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Roboto, Space_Grotesk as SpaceGrotesk } from 'next/font/google'
 import './globals.css'
 import { ChildProps } from '@/types'
+import { ThemeProvider } from '@/components/providers/theme.provider'
 
 const roboto = Roboto({
 	subsets: ['latin', 'cyrillic'],
@@ -23,11 +24,19 @@ export const metadata: Metadata = {
 
 function RootLayout({ children }: ChildProps) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning>
 			<body
 				className={`${roboto.className} ${spaceGrotesk.variable} overflow-x-hidden`}
+				suppressHydrationWarning
 			>
-				{children}
+				<ThemeProvider
+					attribute='class'
+					defaultTheme='system'
+					enableSystem
+					disableTransitionOnChange
+				>
+					{children}
+				</ThemeProvider>
 			</body>
 		</html>
 	)
