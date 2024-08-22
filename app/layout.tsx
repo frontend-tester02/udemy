@@ -17,7 +17,7 @@ const spaceGrotesk = SpaceGrotesk({
 })
 
 export const metadata: Metadata = {
-	title: 'Startup - Next.js',
+	title: 'Udemy',
 	description: 'Startup Next.js project',
 	icons: { icon: '/logo.svg' },
 }
