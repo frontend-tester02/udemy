@@ -1,3 +1,5 @@
+'use client'
+
 import Logo from '@/components/shared/logo'
 import ModeToggle from '@/components/shared/mode-toggle'
 import { Button } from '@/components/ui/button'
@@ -6,8 +8,18 @@ import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import GlobalSearch from '../../_components/global-search'
 import LanguageDropdown from '@/components/shared/language-dropdown'
+import {
+	SignInButton,
+	SignUpButton,
+	SignedIn,
+	SignedOut,
+	UserButton,
+} from '@clerk/nextjs'
+import { useTheme } from 'next-themes'
+import { dark } from '@clerk/themes'
 
 function Navbar() {
+	const { resolvedTheme } = useTheme()
 	return (
 		<div className='fixed inset-0 z-40 h-20 bg-background/70 backdrop-blur-xl'>
 			<div className='container mx-auto flex h-full max-w-7xl items-center justify-between border-b'>
@@ -35,12 +47,30 @@ function Navbar() {
 						</Button>
 						<ModeToggle />
 					</div>
-					<Button variant={'ghost'} size={'lg'} rounded={'full'}>
-						Log in
-					</Button>
-					<Button size={'lg'} rounded={'full'}>
-						Sign up
-					</Button>
+					<SignedIn>
+						<UserButton
+							appearance={{
+								baseTheme: resolvedTheme === 'dark' ? dark : undefined,
+							}}
+							userProfileProps={{
+								appearance: {
+									baseTheme: resolvedTheme === 'dark' ? dark : undefined,
+								},
+							}}
+						/>
+					</SignedIn>
+					<SignedOut>
+						<SignInButton mode='modal'>
+							<Button variant={'ghost'} size={'lg'} rounded={'full'}>
+								Log in
+							</Button>
+						</SignInButton>
+						<SignUpButton mode='modal'>
+							<Button size={'lg'} rounded={'full'}>
+								Sign up
+							</Button>
+						</SignUpButton>
+					</SignedOut>
 				</div>
 			</div>
 		</div>

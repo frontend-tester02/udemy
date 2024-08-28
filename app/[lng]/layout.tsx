@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/providers/theme.provider'
 import { languages } from '@/i18n/settings'
 import { dir } from 'i18next'
 import { ClerkProvider } from '@clerk/nextjs'
+import { localization } from '@/lib/utils'
 
 const roboto = Roboto({
 	subsets: ['latin', 'cyrillic'],
@@ -33,8 +34,9 @@ interface Props extends ChildProps {
 }
 
 function RootLayout({ children, params: { lng } }: Props) {
+	const local = localization(lng)
 	return (
-		<ClerkProvider>
+		<ClerkProvider localization={local}>
 			<html lang={lng} dir={dir(lng)} suppressHydrationWarning>
 				<body
 					className={`${roboto.className} ${spaceGrotesk.variable} overflow-x-hidden`}
