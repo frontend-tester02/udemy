@@ -10,9 +10,11 @@ import {
 } from '../ui/dropdown-menu'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import Link from 'next/link'
+import UseTranslate from '@/hooks/use-translate'
 
 function UserBox() {
 	const { user } = useUser()
+	const t = UseTranslate()
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -49,14 +51,14 @@ function UserBox() {
 				<DropdownMenuSeparator />
 				<Link href={'/user-profile'}>
 					<DropdownMenuItem className='w-full cursor-pointer text-muted-foreground'>
-						Manage account
+						{t('manageAccount')}
 					</DropdownMenuItem>
 				</Link>
 				<DropdownMenuItem
 					asChild
 					className='w-full cursor-pointer text-muted-foreground'
 				>
-					<SignOutButton>Log Out</SignOutButton>
+					<SignOutButton>{t('logout')}</SignOutButton>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

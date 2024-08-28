@@ -10,8 +10,10 @@ import GlobalSearch from '../../_components/global-search'
 import LanguageDropdown from '@/components/shared/language-dropdown'
 import { SignInButton, SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs'
 import UserBox from '@/components/shared/user-box'
+import UseTranslate from '@/hooks/use-translate'
 
 function Navbar() {
+	const t = UseTranslate()
 	return (
 		<div className='fixed inset-0 z-40 h-20 bg-background/70 backdrop-blur-xl'>
 			<div className='container mx-auto flex h-full max-w-7xl items-center justify-between border-b'>
@@ -24,7 +26,7 @@ function Navbar() {
 								key={nav.route}
 								className='font-medium transition-all hover:text-blue-500 hover:underline'
 							>
-								{nav.name}
+								{t(nav.name)}
 							</Link>
 						))}
 					</div>
