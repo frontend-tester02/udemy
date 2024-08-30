@@ -4,5 +4,7 @@
 	"navLink3": "Bloglar",
 	"navLink4": "Aloqa",
 	"manageAccount": "Profilni boshqarish",
-	"logout": "Chiqish"
+	"logout": "Chiqish",
+	"signUp": "Ro'yxatdan o'tish",
+	"logIn": "Kirish"
 }

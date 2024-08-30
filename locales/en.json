@@ -4,5 +4,7 @@
 	"navLink3": "Blogs",
 	"navLink4": "Contact",
 	"manageAccount": "Manage account",
-	"logout": "Log Out"
+	"logout": "Log Out",
+	"signUp": "Sign Up",
+	"logIn": "Log in"
 }
