@@ -11,11 +11,11 @@ import {
 	SheetTrigger,
 } from '@/components/ui/sheet'
 import { navLinks } from '@/constants'
-import useTranslate from '@/hooks/use-translate'
 import { AlignCenter, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
-import GlobalSearch from '../../_components/global-search'
 import ModeToggle from '@/components/shared/mode-toggle'
+import GlobalSearch from './global-search'
+import useTranslate from '@/hooks/use-translate'
 
 function Mobile() {
 	const t = useTranslate()

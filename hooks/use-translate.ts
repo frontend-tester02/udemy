@@ -1,5 +1,5 @@
+import { useTranslation } from '@/i18n/client'
 import { useParams } from 'next/navigation'
-import { useTranslation } from 'react-i18next'
 
 function useTranslate() {
 	const { lng } = useParams()

@@ -10,11 +10,11 @@ import {
 } from '../ui/dropdown-menu'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import Link from 'next/link'
-import UseTranslate from '@/hooks/use-translate'
+import useTranslate from '@/hooks/use-translate'
 
 function UserBox() {
 	const { user } = useUser()
-	const t = UseTranslate()
+	const t = useTranslate()
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>

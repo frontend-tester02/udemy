@@ -1,13 +1,11 @@
-'use client'
-
-import { useTranslation } from '@/i18n/client'
-import { useParams } from 'next/navigation'
+// import Hero from './_components/hero'
 
 function Page() {
-	const { lng } = useParams()
-	const { t } = useTranslation(lng as string)
-
-	return <div className='mt-24 w-10 p-9 text-xl font-bold'>{t('home')}</div>
+	return (
+		<>
+			<h1>Hello</h1>
+		</>
+	)
 }
 
 export default Page
