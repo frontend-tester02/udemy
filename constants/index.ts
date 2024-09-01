@@ -169,3 +169,26 @@ export const instructors = [
 		job: 'Designer',
 	},
 ]
+
+export const learningJourney = [
+	{
+		title: 'startTitle1',
+		excerpt: 'startDescription1',
+		image: '/assets/journey/rating.png',
+	},
+	{
+		title: 'startTitle2',
+		excerpt: 'startDescription2',
+		image: '/assets/journey/science.png',
+	},
+	{
+		title: 'startTitle3',
+		excerpt: 'startDescription3',
+		image: '/assets/journey/online-learning.png',
+	},
+	{
+		title: 'startTitle4',
+		excerpt: 'startDescription4',
+		image: '/assets/journey/certificate.png',
+	},
+]
