@@ -142,3 +142,30 @@ export const categories = [
 	},
 	{ icon: '/assets/categories/it-software.svg', label: 'IT & Software' },
 ]
+
+export const instructors = [
+	{
+		name: 'Chris Impley',
+		image:
+			'https://blog.sammi.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FKmuGvX9oRjYkG3bzttvc&w=1920&q=75',
+		job: 'Web Developer',
+	},
+	{
+		name: 'Thomas Winter',
+		image:
+			'https://blog.sammi.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FdT22spgATpzG10VG3TSA&w=3840&q=75',
+		job: 'Photographer',
+	},
+	{
+		name: 'Emma Watson',
+		image:
+			'https://blog.sammi.app/_next/image?url=https%3A%2F%2Fmedia.graphassets.com%2FmhvJXIm9QuykyIp3bm4Q&w=3840&q=75',
+		job: 'Digital Marketer',
+	},
+	{
+		name: 'John Doe',
+		image:
+			'https://static.independent.co.uk/2023/05/01/11/be5fda0ecbee4f69e504b721f23a0608Y29udGVudHNlYXJjaGFwaSwxNjgzMDIyNTM1-2.71789316.jpg?quality=75&width=990&crop=3%3A2%2Csmart&auto=webp',
+		job: 'Designer',
+	},
+]
