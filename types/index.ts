@@ -24,3 +24,9 @@ export interface ICategory {
 	label: string
 	icon: string
 }
+
+export interface IInstructor {
+	name: string
+	image: string
+	job: string
+}
