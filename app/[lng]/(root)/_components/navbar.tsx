@@ -61,14 +61,17 @@ function Navbar() {
 							<Button
 								variant={'ghost'}
 								size={'lg'}
-								rounded={'full'}
-								className='hidden md:flex'
+								className='hidden rounded-full md:flex'
 							>
 								{t('logIn')}
 							</Button>
 						</SignInButton>
 						<SignUpButton mode='modal'>
-							<Button size={'lg'} rounded={'full'} className='hidden md:flex'>
+							<Button
+								size={'lg'}
+								rounded={'full'}
+								className='hidden rounded-full md:flex'
+							>
 								{t('signUp')}
 							</Button>
 						</SignUpButton>
