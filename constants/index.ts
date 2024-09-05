@@ -1,4 +1,14 @@
-import { Contact, Home, ListVideo, Rss } from 'lucide-react'
+import {
+	Contact,
+	FileCode,
+	GaugeCircle,
+	Home,
+	ListVideo,
+	MessageSquareMore,
+	MonitorPlay,
+	Rss,
+	Settings2,
+} from 'lucide-react'
 import * as DiIcons from 'react-icons/di'
 
 export const navLinks = [
@@ -191,4 +201,16 @@ export const learningJourney = [
 		excerpt: 'startDescription4',
 		image: '/assets/journey/certificate.png',
 	},
+]
+
+export const instructorNavLinks = [
+	{ label: 'Dashboard', route: '/instructor', icon: GaugeCircle },
+	{ label: 'My Courses', route: '/instructor/my-courses', icon: MonitorPlay },
+	{
+		label: 'Create Course',
+		route: '/instructor/create-course',
+		icon: FileCode,
+	},
+	{ label: 'Reviews', route: '/instructor/reviews', icon: MessageSquareMore },
+	{ label: 'Settings', route: '/instructor/settings', icon: Settings2 },
 ]
