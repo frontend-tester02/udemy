@@ -34,10 +34,9 @@ function FeaturedCourses() {
 					{filterCourses.map(item => (
 						<Button
 							key={item.name}
-							rounded={'full'}
 							variant={filter === item.name ? 'secondary' : 'ghost'}
 							className={cn(
-								'font-medium max-md:w-full max-md:bg-secondary',
+								'font-medium max-md:w-full max-md:bg-secondary rounded-full',
 								filter === item.name && 'text-primary'
 							)}
 							onClick={() => setFilter(item.name)}
