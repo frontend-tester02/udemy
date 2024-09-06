@@ -214,3 +214,14 @@ export const instructorNavLinks = [
 	{ label: 'Reviews', route: '/instructor/reviews', icon: MessageSquareMore },
 	{ label: 'Settings', route: '/instructor/settings', icon: Settings2 },
 ]
+
+export const courseLevels = ['beginner', 'intermediate', 'advanced']
+export const courseCategory = [
+	'front-end',
+	'back-end',
+	'full-stack',
+	'mobile',
+	'desktop',
+	'game',
+]
+export const courseLanguage = ['english', 'uzbek', 'russian', 'turkish']
