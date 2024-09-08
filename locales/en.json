@@ -85,5 +85,6 @@
 	"numberOfModules": "Modules",
 	"numberOfLessons": "Lessons",
 	"courseDuration": "Course duration",
-	"youMayLike": "You May Like"
+	"youMayLike": "You May Like",
+	"category": "Category"
 }
