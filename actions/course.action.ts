@@ -50,3 +50,12 @@ export const updateStatusCourse = async (
 	}
 }
 
+export const deleteCourse = async (id: string, path: string) => {
+	try {
+		await connectToDatabase()
+		await Course.findByIdAndDelete(id)
+		revalidatePath(path)
+	} catch (error) {
+		throw new Error('Something went wrong while deleting course!')
+	}
+}
