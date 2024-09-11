@@ -25,3 +25,4 @@ export const getCourses = async () => {
 		throw new Error('Something went wrong while getting course!')
 	}
 }
+		throw new Error('Something went wrong while getting course!')
