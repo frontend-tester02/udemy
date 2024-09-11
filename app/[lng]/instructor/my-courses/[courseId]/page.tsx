@@ -31,7 +31,7 @@ async function Page({ params }: { params: { courseId: string } }) {
 						</span>
 						<Settings />
 					</div>
-					<CourseFields />
+					<CourseFields {...course} />
 				</div>
 				<div className='flex flex-col space-y-2'></div>
 			</div>
