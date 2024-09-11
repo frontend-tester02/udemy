@@ -1,6 +1,6 @@
 'use client'
 
-import { deleteCourse, updateStatusCourse } from '@/actions/course.action'
+import { deleteCourse, updateCourse } from '@/actions/course.action'
 import { ICourse } from '@/app.types'
 import ConfirmDeleteModal from '@/components/models/confirm-delete.modal'
 import { Button } from '@/components/ui/button'
@@ -13,9 +13,9 @@ function Actions(course: ICourse) {
 	const onUpdateStatus = () => {
 		let promise
 		if (course.published) {
-			promise = updateStatusCourse(course._id, false, pathname)
+			promise = updateCourse(course._id, { published: false }, pathname)
 		} else {
-			promise = updateStatusCourse(course._id, true, pathname)
+			promise = updateCourse(course._id, { published: true }, pathname)
 		}
 
 		toast.promise(promise, {
