@@ -26,3 +26,17 @@ export const getCourses = async () => {
 	}
 }
 		throw new Error('Something went wrong while getting course!')
+export const updateStatusCourse = async (
+	id: string,
+	status: boolean,
+	path: string
+) => {
+	try {
+		await connectToDatabase()
+		await Course.findByIdAndUpdate(id, { published: status })
+		revalidatePath(path)
+	} catch (error) {
+		throw new Error('Something went wrong while updating course status!')
+	}
+}
+
