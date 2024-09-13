@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import UseToggleEdit from '@/hooks/use-toggle-edit'
 import { courseFieldsSchema } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Edit2, X } from 'lucide-react'
@@ -24,22 +25,20 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 function CourseFields(course: ICourse) {
-	const [isEdit, setIsEdit] = useState(false)
-
-	const onToggle = () => setIsEdit(prev => !prev)
+	const { state, onToggle } = UseToggleEdit()
 	return (
 		<Card>
 			<CardContent className='relative p-2'>
 				<div className='flex items-center justify-between'>
 					<span className='text-lg font-medium'>Course Title</span>
 					<Button size={'icon'} variant={'ghost'} onClick={onToggle}>
-						{isEdit ? <X /> : <Edit2 />}
+						{state ? <X /> : <Edit2 />}
 					</Button>
 				</div>
 
 				<Separator className='my-3' />
 
-				{isEdit ? (
+				{state ? (
 					<Forms course={course} onToggle={onToggle} />
 				) : (
 					<div className='flex flex-col space-y-2'>
