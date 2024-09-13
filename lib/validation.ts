@@ -22,3 +22,7 @@ export const courseFieldsSchema = z.object({
 	title: z.string().min(3),
 	slug: z.string().min(3),
 })
+
+export const descriptionSchema = z.object({
+	description: z.string().min(10),
+})
