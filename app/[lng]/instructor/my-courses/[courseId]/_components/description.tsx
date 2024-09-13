@@ -41,8 +41,8 @@ function Description(course: ICourse) {
 					<Forms course={course} onToggle={onToggle} />
 				) : (
 					<div className='flex items-center gap-2'>
-						<span className='font-spaceGrotesk font-bold text-muted-foreground'>
-							Description
+						<span className='self-start font-spaceGrotesk font-bold text-muted-foreground'>
+							Description:
 						</span>
 						<span className='line-clamp-3 font-medium'>
 							{course.description}
