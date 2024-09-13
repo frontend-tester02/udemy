@@ -5,6 +5,7 @@ import { Separator } from '@/components/ui/separator'
 import { Settings } from 'lucide-react'
 import CourseFields from './_components/course-fields'
 import Description from './_components/description'
+import Information from './_components/information'
 
 async function Page({ params }: { params: { courseId: string } }) {
 	const courseJSON = await getCourseById(params.courseId)
@@ -34,6 +35,7 @@ async function Page({ params }: { params: { courseId: string } }) {
 					</div>
 					<CourseFields {...course} />
 					<Description {...course} />
+					<Information {...course} />
 				</div>
 				<div className='flex flex-col space-y-2'></div>
 			</div>
