@@ -12,4 +12,5 @@ export interface ICourse {
 	previewImage: string
 	published: boolean
 	slug: string
+	tags: string
 }
