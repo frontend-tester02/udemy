@@ -26,3 +26,10 @@ export const courseFieldsSchema = z.object({
 export const descriptionSchema = z.object({
 	description: z.string().min(10),
 })
+
+export const informationSchema = z.object({
+	requirements:z.string(),
+	learning: z.string(),
+	tags: z.string(),
+
+})
