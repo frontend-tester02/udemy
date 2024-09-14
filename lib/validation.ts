@@ -38,3 +38,8 @@ export const selectFiledsSchema = z.object({
 	category: z.string(),
 	level: z.string(),
 })
+
+export const priceSchema = z.object({
+	oldPrice: z.string(),
+	currentPrice: z.string(),
+})
