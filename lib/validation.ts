@@ -28,8 +28,13 @@ export const descriptionSchema = z.object({
 })
 
 export const informationSchema = z.object({
-	requirements:z.string(),
+	requirements: z.string(),
 	learning: z.string(),
 	tags: z.string(),
+})
 
+export const selectFiledsSchema = z.object({
+	language: z.string(),
+	category: z.string(),
+	level: z.string(),
 })
