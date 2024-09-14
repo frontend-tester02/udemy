@@ -59,7 +59,7 @@ function Information(course: ICourse) {
 
 						<div className='flex grid-cols-3 gap-2'>
 							<div className=' col-span-1 font-spaceGrotesk font-bold text-muted-foreground'>
-								Tags
+								Tags:
 							</div>
 							<div className='col-span-2 line-clamp-3'>{course.tags}</div>
 						</div>
