@@ -6,6 +6,7 @@ import { ChevronLeftCircle, Settings, Settings2 } from 'lucide-react'
 import Link from 'next/link'
 import Action from './_components/action'
 import SectionField from './_components/section-field'
+import Lessons from './_components/lessons'
 
 interface Params {
 	params: { sectionId: string; courseId: string }
@@ -41,6 +42,7 @@ async function Page({ params }: Params) {
 						</span>{' '}
 						<Settings2 />
 					</div>
+					<Lessons section={section} />
 				</div>
 				<div className='flex flex-col space-y-2'>
 					<div className='flex items-center gap-2'>
