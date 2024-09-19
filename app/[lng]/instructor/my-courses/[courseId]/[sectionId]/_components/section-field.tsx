@@ -1,6 +1,6 @@
 'use client'
 
-import { createSection } from '@/actions/section.action'
+import { updateSectionTitle } from '@/actions/section.action'
 import { ISection } from '@/app.types'
 import FillLoading from '@/components/shared/fill-loading'
 import { Button } from '@/components/ui/button'
@@ -75,11 +75,13 @@ function Forms({ section, onToggle }: FormProps) {
 
 	const onSubmit = (values: z.infer<typeof sectionSchema>) => {
 		setIsLoading(true)
-		const promise
+		const promise = updateSectionTitle(section._id, values.title, pathname)
+			.then(() => onToggle())
+			.finally(() => setIsLoading(false))
 
 		toast.promise(promise, {
 			loading: 'Loading...',
-			success: 'Successfully created!',
+			success: 'Successfully updated!',
 			error: 'Something went wrong!',
 		})
 	}
