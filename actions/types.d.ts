@@ -40,3 +40,9 @@ export interface ILessonFields {
 	minutes: string
 	seconds: string
 }
+
+export interface ICreateLesson {
+	lesson: ILessonFields
+	section: string
+	path: string
+}
