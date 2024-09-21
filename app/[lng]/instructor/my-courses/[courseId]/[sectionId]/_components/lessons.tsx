@@ -2,7 +2,7 @@
 
 import { createLesson } from '@/actions/lesson.action'
 import { ILessonFields } from '@/actions/types'
-import { ISection } from '@/app.types'
+import { ILesson, ISection } from '@/app.types'
 import FillLoading from '@/components/shared/fill-loading'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -19,6 +19,7 @@ import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import UseToggleEdit from '@/hooks/use-toggle-edit'
 import { lessonSchema } from '@/lib/validation'
+import { DragDropContext, Droppable } from '@hello-pangea/dnd'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { BadgePlus, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
@@ -26,17 +27,17 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import LessonList from './lesson-list'
 
 interface Props {
 	section: ISection
+	lessons: ILesson[]
 }
 
-function Lessons({ section }: Props) {
+function Lessons({ section, lessons }: Props) {
 	const { onToggle, state } = UseToggleEdit()
 	const [isLoading, setIsLoading] = useState(false)
 	const path = usePathname()
-
-	const lessons: any[] = []
 
 	const onAdd = async (lesson: ILessonFields) => {
 		setIsLoading(true)
@@ -44,6 +45,8 @@ function Lessons({ section }: Props) {
 			.then(() => onToggle())
 			.finally(() => setIsLoading(false))
 	}
+
+	const onDragEnd = () => {}
 
 	return (
 		<Card>
@@ -64,7 +67,21 @@ function Lessons({ section }: Props) {
 						{!lessons.length ? (
 							<p className='text-muted-foreground'>No lessons</p>
 						) : (
-							<p>Lessons</p>
+							<DragDropContext onDragEnd={onDragEnd}>
+								<Droppable droppableId='lessons'>
+									{provided => (
+										<div {...provided.droppableProps} ref={provided.innerRef}>
+											{lessons.map((lesson, index) => (
+												<LessonList
+													key={lesson._id}
+													lesson={lesson}
+													index={index}
+												/>
+											))}
+										</div>
+									)}
+								</Droppable>
+							</DragDropContext>
 						)}
 					</>
 				)}
