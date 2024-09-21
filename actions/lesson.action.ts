@@ -6,6 +6,15 @@ import Section from '@/database/section.model'
 import Lesson from '@/database/lesson.model'
 import { revalidatePath } from 'next/cache'
 
+export const getLessons = async (section: string) => {
+	try {
+		await connectToDatabase()
+		return await Lesson.find({ section }).sort({ position: 1 })
+	} catch (error) {
+		throw new Error('Something went wrong!')
+	}
+}
+
 export const createLesson = async (params: ICreateLesson) => {
 	try {
 		await connectToDatabase()
