@@ -1,6 +1,6 @@
 'use client'
 
-import { createLesson } from '@/actions/lesson.action'
+import { createLesson, editLesson } from '@/actions/lesson.action'
 import { ILessonFields } from '@/actions/types'
 import { ILesson, ISection } from '@/app.types'
 import FillLoading from '@/components/shared/fill-loading'
@@ -37,12 +37,40 @@ interface Props {
 function Lessons({ section, lessons }: Props) {
 	const { onToggle, state } = UseToggleEdit()
 	const [isLoading, setIsLoading] = useState(false)
+	const [isEdit, setIsEdit] = useState(false)
+	const [currentLesson, setCurrentLesson] = useState<ILessonFields | null>(null)
+	const [lessonId, setLessonId] = useState('')
 	const path = usePathname()
 
 	const onAdd = async (lesson: ILessonFields) => {
 		setIsLoading(true)
 		return createLesson({ lesson, section: section._id, path })
 			.then(() => onToggle())
+			.finally(() => setIsLoading(false))
+	}
+
+	const onStartEdit = (lesson: ILesson) => {
+		setIsEdit(true)
+		setLessonId(lesson._id)
+		setCurrentLesson({
+			content: lesson.content,
+			hours: `${lesson.duration.hours}`,
+			minutes: `${lesson.duration.minutes}`,
+			seconds: `${lesson.duration.seconds}`,
+			title: lesson.title,
+			videoUrl: lesson.videoUrl,
+		})
+	}
+	const onFinishEdit = () => {
+		setIsEdit(false)
+		setCurrentLesson(null)
+		setLessonId('')
+	}
+
+	const onEdit = async (lesson: ILessonFields) => {
+		setIsLoading(true)
+		return editLesson(lesson, lessonId, path)
+			.then(() => onFinishEdit())
 			.finally(() => setIsLoading(false))
 	}
 
@@ -54,14 +82,23 @@ function Lessons({ section, lessons }: Props) {
 				{isLoading && <FillLoading />}
 				<div className='flex items-center justify-between'>
 					<span className='text-lg font-medium'>Manage chapters</span>
-					<Button size={'icon'} variant={'ghost'} onClick={onToggle}>
-						{state ? <X /> : <BadgePlus />}
-					</Button>
+					{!isEdit && (
+						<Button size={'icon'} variant={'ghost'} onClick={onToggle}>
+							{state ? <X /> : <BadgePlus />}
+						</Button>
+					)}
 				</div>
 
 				<Separator className='my-3' />
 				{state ? (
 					<Forms lesson={{} as ILessonFields} handler={onAdd} />
+				) : isEdit ? (
+					<Forms
+						lesson={currentLesson as ILessonFields}
+						handler={onEdit}
+						isEdit
+						onCancel={onFinishEdit}
+					/>
 				) : (
 					<>
 						{!lessons.length ? (
@@ -76,6 +113,7 @@ function Lessons({ section, lessons }: Props) {
 													key={lesson._id}
 													lesson={lesson}
 													index={index}
+													onStartEdit={() => onStartEdit(lesson)}
 												/>
 											))}
 										</div>
@@ -95,9 +133,11 @@ export default Lessons
 interface FormProps {
 	lesson: ILessonFields
 	handler: (lesson: ILessonFields) => Promise<void>
+	isEdit?: boolean
+	onCancel?: () => void
 }
 
-function Forms({ handler, lesson }: FormProps) {
+function Forms({ handler, lesson, isEdit = false, onCancel }: FormProps) {
 	const { content, hours, minutes, seconds, videoUrl, title } = lesson
 
 	const form = useForm<z.infer<typeof lessonSchema>>({
@@ -234,7 +274,12 @@ function Forms({ handler, lesson }: FormProps) {
 					/>
 				</div>
 				<div className='flex items-center gap-2'>
-					<Button type='submit'>Save</Button>
+					<Button type='submit'>Add</Button>
+					{isEdit && (
+						<Button variant={'destructive'} type='button' onClick={onCancel}>
+							Cancel
+						</Button>
+					)}
 				</div>
 			</form>
 		</Form>
