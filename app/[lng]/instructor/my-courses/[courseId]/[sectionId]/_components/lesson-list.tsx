@@ -8,9 +8,10 @@ import { toast } from 'sonner'
 interface Props {
 	lesson: ILesson
 	index: number
+	onStartEdit: () => void
 }
 
-function LessonList({ lesson, index }: Props) {
+function LessonList({ lesson, index, onStartEdit }: Props) {
 	const pathname = usePathname()
 	const onDelete = () => {
 		const isConfirmed = confirm('Are you sure you want to delete this lesson?')
@@ -41,7 +42,10 @@ function LessonList({ lesson, index }: Props) {
 					</div>
 					<span>{lesson.title}</span>
 					<div className='ml-auto flex items-center gap-x-2 pr-2'>
-						<Pencil className='size-4 cursor-pointer transition hover:opacity-75' />
+						<Pencil
+							className='size-4 cursor-pointer transition hover:opacity-75'
+							onClick={onStartEdit}
+						/>
 						<Trash2
 							className='size-4 cursor-pointer transition hover:opacity-75'
 							onClick={onDelete}
