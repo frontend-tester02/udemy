@@ -1,7 +1,7 @@
 'use server'
 
 import { connectToDatabase } from '@/lib/mongoose'
-import { ICreateLesson, ILessonFields } from './types'
+import { ICreateLesson, ILessonFields, IUpdatePosition } from './types'
 import Section from '@/database/section.model'
 import Lesson from '@/database/lesson.model'
 import { revalidatePath } from 'next/cache'
@@ -71,6 +71,19 @@ export const editLesson = async (
 			seconds: Number(lesson.seconds),
 		}
 		await Lesson.findByIdAndUpdate(lessonId, { ...lesson, duration })
+		revalidatePath(path)
+	} catch (error) {
+		throw new Error('Something went wrong!')
+	}
+}
+
+export const editLessonPosition = async (params: IUpdatePosition) => {
+	try {
+		await connectToDatabase()
+		const { lists, path } = params
+		for (const item of lists) {
+			await Lesson.findByIdAndUpdate(item._id, { position: item.position })
+		}
 		revalidatePath(path)
 	} catch (error) {
 		throw new Error('Something went wrong!')
