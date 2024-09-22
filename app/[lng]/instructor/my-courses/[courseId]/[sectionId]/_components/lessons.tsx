@@ -1,6 +1,10 @@
 'use client'
 
-import { createLesson, editLesson } from '@/actions/lesson.action'
+import {
+	createLesson,
+	editLesson,
+	editLessonPosition,
+} from '@/actions/lesson.action'
 import { ILessonFields } from '@/actions/types'
 import { ILesson, ISection } from '@/app.types'
 import FillLoading from '@/components/shared/fill-loading'
@@ -19,7 +23,7 @@ import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import UseToggleEdit from '@/hooks/use-toggle-edit'
 import { lessonSchema } from '@/lib/validation'
-import { DragDropContext, Droppable } from '@hello-pangea/dnd'
+import { DragDropContext, Droppable, DropResult } from '@hello-pangea/dnd'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { BadgePlus, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
@@ -74,7 +78,38 @@ function Lessons({ section, lessons }: Props) {
 			.finally(() => setIsLoading(false))
 	}
 
-	const onDragEnd = () => {}
+	const onReorder = (updatedData: { _id: string; position: number }[]) => {
+		setIsLoading(true)
+		const promise = editLessonPosition({
+			lists: updatedData,
+			path,
+		}).finally(() => setIsLoading(false))
+
+		toast.promise(promise, {
+			loading: 'Loading...',
+			success: 'Successfully reordered!',
+			error: 'Something went wrong!',
+		})
+	}
+
+	const onDragEnd = (result: DropResult) => {
+		if (!result.destination) return null
+		const items = Array.from(lessons)
+		const [reorderedItem] = items.splice(result.source.index, 1)
+		items.splice(result.destination.index, 0, reorderedItem)
+
+		const startIndex = Math.min(result.source.index, result.destination.index)
+		const endIndex = Math.max(result.source.index, result.destination.index)
+
+		const updatedLessons = items.slice(startIndex, endIndex + 1)
+
+		const bulkUpdatedData = updatedLessons.map(lesson => ({
+			_id: lesson._id,
+			position: items.findIndex(item => item._id === lesson._id),
+		}))
+
+		onReorder(bulkUpdatedData)
+	}
 
 	return (
 		<Card>
