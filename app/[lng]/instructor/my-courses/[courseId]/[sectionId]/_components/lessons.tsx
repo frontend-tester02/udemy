@@ -32,6 +32,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import LessonList from './lesson-list'
+import { Editor } from '@tinymce/tinymce-react'
+import { editorConfig } from '@/constants'
 
 interface Props {
 	section: ISection
@@ -240,10 +242,13 @@ function Forms({ handler, lesson, isEdit = false, onCancel }: FormProps) {
 						<FormItem>
 							<FormLabel>Content</FormLabel>
 							<FormControl>
-								<Textarea
-									{...field}
-									className='bg-secondary'
-									placeholder='e.g. "Content"'
+								<Editor
+									apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
+									init={editorConfig}
+									onBlur={field.onBlur}
+									onChange={field.onChange}
+									initialValue={content}
+									onEditorChange={content => field.onChange(content)}
 								/>
 							</FormControl>
 							<FormMessage />
@@ -309,7 +314,7 @@ function Forms({ handler, lesson, isEdit = false, onCancel }: FormProps) {
 					/>
 				</div>
 				<div className='flex items-center gap-2'>
-					<Button type='submit'>Add</Button>
+					<Button type='submit'>{isEdit ? 'Edit' : 'Add'}</Button>
 					{isEdit && (
 						<Button variant={'destructive'} type='button' onClick={onCancel}>
 							Cancel
