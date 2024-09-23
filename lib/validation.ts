@@ -55,4 +55,5 @@ export const lessonSchema = z.object({
 	hours: z.string(),
 	minutes: z.string(),
 	seconds: z.string(),
+	free: z.boolean().optional(),
 })
