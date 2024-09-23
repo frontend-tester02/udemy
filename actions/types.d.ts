@@ -39,6 +39,7 @@ export interface ILessonFields {
 	hours: string
 	minutes: string
 	seconds: string
+	free: boolean
 }
 
 export interface ICreateLesson {
