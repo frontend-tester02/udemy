@@ -34,6 +34,7 @@ import { z } from 'zod'
 import LessonList from './lesson-list'
 import { Editor } from '@tinymce/tinymce-react'
 import { editorConfig } from '@/constants'
+import { Checkbox } from '@/components/ui/checkbox'
 
 interface Props {
 	section: ISection
@@ -65,6 +66,7 @@ function Lessons({ section, lessons }: Props) {
 			seconds: `${lesson.duration.seconds}`,
 			title: lesson.title,
 			videoUrl: lesson.videoUrl,
+			free: lesson.free,
 		})
 	}
 	const onFinishEdit = () => {
@@ -175,7 +177,7 @@ interface FormProps {
 }
 
 function Forms({ handler, lesson, isEdit = false, onCancel }: FormProps) {
-	const { content, hours, minutes, seconds, videoUrl, title } = lesson
+	const { content, hours, minutes, seconds, videoUrl, title, free } = lesson
 
 	const form = useForm<z.infer<typeof lessonSchema>>({
 		resolver: zodResolver(lessonSchema),
@@ -186,11 +188,12 @@ function Forms({ handler, lesson, isEdit = false, onCancel }: FormProps) {
 			minutes: `${minutes}`,
 			seconds: `${seconds}`,
 			content,
+			free,
 		},
 	})
 
 	const onSubmit = (values: z.infer<typeof lessonSchema>) => {
-		const promise = handler(values).finally(() => form.reset())
+		const promise = handler(values as ILessonFields).finally(() => form.reset())
 
 		toast.promise(promise, {
 			loading: 'Loading...',
@@ -246,7 +249,6 @@ function Forms({ handler, lesson, isEdit = false, onCancel }: FormProps) {
 									apiKey={process.env.NEXT_PUBLIC_TINY_API_KEY}
 									init={editorConfig}
 									onBlur={field.onBlur}
-									onChange={field.onChange}
 									initialValue={content}
 									onEditorChange={content => field.onChange(content)}
 								/>
@@ -313,6 +315,28 @@ function Forms({ handler, lesson, isEdit = false, onCancel }: FormProps) {
 						)}
 					/>
 				</div>
+				<FormField
+					control={form.control}
+					name='free'
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Seconds</FormLabel>
+							<FormControl>
+								<div className='flex items-center space-x-2'>
+									<Checkbox
+										onCheckedChange={field.onChange}
+										checked={field.value}
+									/>
+									<label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
+										Free lesson
+									</label>
+								</div>
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
 				<div className='flex items-center gap-2'>
 					<Button type='submit'>{isEdit ? 'Edit' : 'Add'}</Button>
 					{isEdit && (
