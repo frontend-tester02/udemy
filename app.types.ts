@@ -28,6 +28,7 @@ export interface ILesson {
 	position: string
 	videoUrl: string
 	content: string
+	free: boolean
 	duration: {
 		hours: number
 		minutes: number
