@@ -7,13 +7,14 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import UseToggleEdit from '@/hooks/use-toggle-edit'
-import { courseStorageRefs } from '@/lib/firebase'
-import { getDownloadURL, uploadString } from 'firebase/storage'
+import { storage } from '@/lib/firebase'
+import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { Edit2, X } from 'lucide-react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 import { toast } from 'sonner'
+import { v4 as uuidv4 } from 'uuid'
 
 function PreviewImage(course: ICourse) {
 	const { state, onToggle } = UseToggleEdit()
@@ -68,10 +69,11 @@ function Forms({ course, onToggle }: FormProps) {
 		const reader = new FileReader()
 		reader.readAsDataURL(file)
 		reader.onload = e => {
+			const refs = ref(storage, `/udemy/course/${uuidv4()}`)
 			const result = e.target?.result as string
-			const promise = uploadString(courseStorageRefs, result, 'data_url')
+			const promise = uploadString(refs, result, 'data_url')
 				.then(() => {
-					getDownloadURL(courseStorageRefs).then(url =>
+					getDownloadURL(refs).then(url =>
 						updateCourse(course._id, { previewImage: url }, pathname)
 					)
 				})
