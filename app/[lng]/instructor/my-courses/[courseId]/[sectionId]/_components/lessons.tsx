@@ -328,7 +328,7 @@ function Forms({ handler, lesson, isEdit = false, onCancel }: FormProps) {
 										checked={field.value}
 									/>
 									<label className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'>
-										Free lesson
+										Are you offering this lesson for free?
 									</label>
 								</div>
 							</FormControl>
