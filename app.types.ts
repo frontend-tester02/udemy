@@ -51,3 +51,7 @@ export interface IUser {
 	github: string
 	youtube: string
 }
+
+export interface SearchParamsProps {
+	searchParams: { [key: string]: string | undefined }
+}
