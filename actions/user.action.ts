@@ -40,3 +40,12 @@ export const updatedUser = async (data: IUpdateUser) => {
 		throw new Error('Error updating user. Please try again.')
 	}
 }
+
+export const getUserById = async (clerkId: string) => {
+	try {
+		await connectToDatabase()
+		return await User.findOne({ clerkId })
+	} catch (error) {
+		throw new Error('Something went wrong!')
+	}
+}
