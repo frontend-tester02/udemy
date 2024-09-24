@@ -1,3 +1,5 @@
+import { IUser } from '@/app.types'
+
 export interface ICreateCourse {
 	title: string
 	description: string
@@ -20,11 +22,8 @@ export interface ICreateUser {
 
 export interface IUpdateUser {
 	clerkId: string
-	updatedData: {
-		fullName: string
-		email: string
-		picture: string
-	}
+	path: string
+	updatedData: Partial<IUser>
 }
 
 export interface IUpdateSection {
