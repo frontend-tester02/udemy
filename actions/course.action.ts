@@ -6,6 +6,7 @@ import { GetCourseParams, ICreateCourse } from './types'
 import { ICourse } from '@/app.types'
 import { revalidatePath } from 'next/cache'
 import User from '@/database/user.model'
+import { cache } from 'react'
 
 export const createCourse = async (data: ICreateCourse, clerkId: string) => {
 	try {
@@ -71,3 +72,22 @@ export const deleteCourse = async (id: string, path: string) => {
 		throw new Error('Something went wrong while deleting course!')
 	}
 }
+
+export const getFeaturedCourses = cache(async () => {
+	try {
+		await connectToDatabase()
+		const courses = await Course.find({ published: true })
+			.limit(6)
+			.sort({ createdAt: -1 })
+			.select('previewImage title slug oldPrice currentPrice instructor')
+			.populate({
+				path: 'instructor',
+				select: 'fullName picture',
+				model: User,
+			})
+
+		return courses
+	} catch (error) {
+		throw new Error('Something went wrong while getting featured courses!')
+	}
+})
