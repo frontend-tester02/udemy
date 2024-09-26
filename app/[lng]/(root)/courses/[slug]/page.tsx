@@ -37,7 +37,7 @@ async function Page({ params: { lng } }: LngParams) {
 					{t('youMayLike')}
 				</h1>
 
-				<Carousel opts={{ align: 'start' }} className='mt-6 w-full'>
+				{/* <Carousel opts={{ align: 'start' }} className='mt-6 w-full'>
 					<CarouselContent className='w-full'>
 						{courses.map(course => (
 							<CarouselItem
@@ -50,7 +50,7 @@ async function Page({ params: { lng } }: LngParams) {
 					</CarouselContent>
 					<CarouselPrevious />
 					<CarouselNext />
-				</Carousel>
+				</Carousel> */}
 			</div>
 		</>
 	)
