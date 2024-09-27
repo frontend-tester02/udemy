@@ -91,3 +91,27 @@ export const getFeaturedCourses = cache(async () => {
 		throw new Error('Something went wrong while getting featured courses!')
 	}
 })
+
+export const getDetailedCourse = cache(async (id: string) => {
+	try {
+		await connectToDatabase()
+
+		const course = await Course.findById(id)
+			.select(
+				'title description instructor previewImage oldPrice currentPrice learning requirements tags updatedAt level category language'
+			)
+			.populate({
+				path: 'instructor',
+				select: 'fullName picture',
+				model: User,
+			})
+
+		const data = {
+			...course._doc,
+		}
+
+		return data
+	} catch (error) {
+		throw new Error('Something went wrong while getting detailed course')
+	}
+})
