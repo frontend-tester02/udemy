@@ -3,10 +3,13 @@
 import Course from '@/database/course.model'
 import { connectToDatabase } from '@/lib/mongoose'
 import { GetCourseParams, ICreateCourse } from './types'
-import { ICourse } from '@/app.types'
+import { ICourse, ILesson } from '@/app.types'
 import { revalidatePath } from 'next/cache'
 import User from '@/database/user.model'
 import { cache } from 'react'
+import Section from '@/database/section.model'
+import Lesson from '@/database/lesson.model'
+import { calculateToralDuration } from '@/lib/utils'
 
 export const createCourse = async (data: ICreateCourse, clerkId: string) => {
 	try {
@@ -106,8 +109,20 @@ export const getDetailedCourse = cache(async (id: string) => {
 				model: User,
 			})
 
+		const sections = await Section.find({ course: id }).populate({
+			path: 'lessons',
+			model: Lesson,
+		})
+
+		const totalLessons: ILesson[] = sections
+			.map(section => section.lessons)
+			.flat()
+
 		const data = {
 			...course._doc,
+			totalLessons: totalLessons.length,
+			totalSections: sections.length,
+			totalDuration: calculateToralDuration(totalLessons),
 		}
 
 		return data
