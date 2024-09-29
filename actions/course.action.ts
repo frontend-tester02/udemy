@@ -9,7 +9,7 @@ import User from '@/database/user.model'
 import { cache } from 'react'
 import Section from '@/database/section.model'
 import Lesson from '@/database/lesson.model'
-import { calculateToralDuration } from '@/lib/utils'
+import { calculateTotalDuration } from '@/lib/utils'
 
 export const createCourse = async (data: ICreateCourse, clerkId: string) => {
 	try {
@@ -122,7 +122,7 @@ export const getDetailedCourse = cache(async (id: string) => {
 			...course._doc,
 			totalLessons: totalLessons.length,
 			totalSections: sections.length,
-			totalDuration: calculateToralDuration(totalLessons),
+			totalDuration: calculateTotalDuration(totalLessons),
 		}
 
 		return data
