@@ -1,13 +1,9 @@
 'use client'
 
-import { ICourse } from '@/app.types'
+import { getCourseSections } from '@/actions/section.action'
+import { ICourse, ISection } from '@/app.types'
 import ReviewCard from '@/components/cards/review.card'
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from '@/components/ui/accordion'
+import { Accordion } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import useTranslate from '@/hooks/use-translate'
@@ -19,9 +15,29 @@ import {
 	MonitorPlay,
 	Star,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import SectionList from './section-list'
+import SectionLoading from '@/components/shared/section-loading'
 
 function Overview(course: ICourse) {
+	const [isLoading, setIsLoading] = useState(true)
+	const [sections, setSections] = useState<ISection[]>([])
+
 	const t = useTranslate()
+
+	useEffect(() => {
+		const getData = async () => {
+			try {
+				const res = await getCourseSections(course._id)
+				setSections(res)
+				setIsLoading(false)
+			} catch (error) {
+				setIsLoading(false)
+			}
+		}
+		getData()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
 	return (
 		<>
 			<div className='mt-6 rounded-md bg-gradient-to-t from-background to-secondary p-4 lg:p-6'>
@@ -75,14 +91,19 @@ function Overview(course: ICourse) {
 
 				<Separator className='my-3' />
 
-				<Accordion type='single' collapsible>
-					<AccordionItem value='item-1'>
-						<AccordionTrigger>Is it accessible?</AccordionTrigger>
-						<AccordionContent>
-							Yes. It adheres to the WAI-ARIA design pattern.
-						</AccordionContent>
-					</AccordionItem>
-				</Accordion>
+				{isLoading ? (
+					<div className='mt-4 flex flex-col gap-1'>
+						{Array.from({ length: course.totalSections }).map((_, i) => (
+							<SectionLoading key={i} />
+						))}
+					</div>
+				) : (
+					<Accordion type='single' collapsible>
+						{sections.map(section => (
+							<SectionList key={section._id} {...section} />
+						))}
+					</Accordion>
+				)}
 			</div>
 
 			<div className='mt-8 rounded-md bg-secondary p-4 lg:p-6'>
