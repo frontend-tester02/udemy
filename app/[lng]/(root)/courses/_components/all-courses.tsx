@@ -50,6 +50,19 @@ function AllCourses() {
 							))}
 						</SelectContent>
 					</Select>
+
+					<Select>
+						<SelectTrigger className='w-[120px] bg-gradient-to-l from-secondary to-background'>
+							<SelectValue placeholder={t('language')} />
+						</SelectTrigger>
+						<SelectContent>
+							{courseLanguage.map(item => (
+								<SelectItem key={item} value={item} className='capitalize'>
+									{t(item)}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
 				</div>
 			</div>
 
