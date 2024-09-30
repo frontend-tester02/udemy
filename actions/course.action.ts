@@ -2,7 +2,7 @@
 
 import Course from '@/database/course.model'
 import { connectToDatabase } from '@/lib/mongoose'
-import { GetCourseParams, ICreateCourse } from './types'
+import { GetAllCoursesParams, GetCourseParams, ICreateCourse } from './types'
 import { ICourse, ILesson } from '@/app.types'
 import { revalidatePath } from 'next/cache'
 import User from '@/database/user.model'
@@ -130,3 +130,48 @@ export const getDetailedCourse = cache(async (id: string) => {
 		throw new Error('Something went wrong while getting detailed course')
 	}
 })
+
+export const getAllCourses = async (params: GetAllCoursesParams) => {
+	try {
+		await connectToDatabase()
+		const { searchQuery, filter, page = 1, pageSize = 6 } = params
+
+		let sortOptions = {}
+
+		switch (filter) {
+			case 'newest':
+				sortOptions = { createdAt: -1 }
+				break
+			case 'popular':
+				sortOptions = { students: -1 }
+				break
+			case 'lowest-price':
+				sortOptions = { currentPrice: 1 }
+				break
+			case 'highest-price':
+				sortOptions = { currentPrice: -1 }
+				break
+			default:
+				break
+		}
+
+		const skipAmount = (page - 1) * pageSize
+		const courses = await Course.find({ published: true })
+			.select('previewImage title slug _id oldPrice currentPrice instructor')
+			.populate({
+				path: 'instructor',
+				select: 'fullName picture',
+				model: User,
+			})
+			.skip(skipAmount)
+			.limit(pageSize)
+			.sort(sortOptions)
+
+		const totalCourses = await Course.find({ published: true }).countDocuments()
+		const isNext = totalCourses > skipAmount + courses.length
+
+		return { courses, isNext, totalCourses }
+	} catch (error) {
+		throw new Error('Something went wrong!')
+	}
+}
