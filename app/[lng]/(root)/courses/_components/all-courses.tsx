@@ -1,6 +1,8 @@
 'use client'
 
+import { ICourse } from '@/app.types'
 import CourseCard from '@/components/cards/course.card'
+import Pagination from '@/components/shared/pagination'
 import {
 	Select,
 	SelectContent,
@@ -8,17 +10,36 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
-import { courses, filterCourses, filterLevels } from '@/constants'
+import {
+	courseLanguage,
+	courses,
+	filterCourses,
+	filterLevels,
+} from '@/constants'
 import useTranslate from '@/hooks/use-translate'
+import { useSearchParams } from 'next/navigation'
 
-function AllCourses() {
+interface Props {
+	result: {
+		courses: ICourse[]
+		isNext: boolean
+		totalCourses: number
+	}
+}
+
+function AllCourses({ result }: Props) {
 	const t = useTranslate()
+
+	const searchParams = useSearchParams()
+	const page = searchParams.get('page')
+
+	const { courses, isNext, totalCourses } = result
 	return (
 		<div className='container mx-auto mt-12 max-w-6xl'>
 			<div className='flex items-center justify-between max-md:flex-col max-md:items-start max-md:space-y-2'>
 				<h2 className='max-md:self-end'>
 					{t('result1')} {''}
-					<span className='font-spaceGrotesk font-bold'>250 </span>
+					<span className='font-spaceGrotesk font-bold'>{totalCourses} </span>
 					{''}
 					{t('result2')}
 				</h2>
@@ -39,7 +60,7 @@ function AllCourses() {
 					</Select>
 
 					<Select>
-						<SelectTrigger className='w-[120px] bg-gradient-to-l from-secondary to-background'>
+						<SelectTrigger className='w-[120px] bg-gradient-to-l from-background via-se to-background'>
 							<SelectValue placeholder={t('level')} />
 						</SelectTrigger>
 						<SelectContent>
