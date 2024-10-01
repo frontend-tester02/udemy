@@ -151,6 +151,27 @@ export const getAllCourses = async (params: GetAllCoursesParams) => {
 			case 'highest-price':
 				sortOptions = { currentPrice: -1 }
 				break
+			case 'english':
+				query.language = 'english'
+				break
+			case 'uzbek':
+				query.language = 'uzbek'
+				break
+			case 'russian':
+				query.language = 'russian'
+				break
+			case 'turkish':
+				query.language = 'turkish'
+				break
+			case 'beginner':
+				query.level = 'beginner'
+				break
+			case 'intermediate':
+				query.level = 'intermediate'
+				break
+			case 'advanced':
+				query.level = 'advanced'
+				break
 			default:
 				break
 		}
