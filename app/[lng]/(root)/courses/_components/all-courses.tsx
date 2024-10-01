@@ -10,14 +10,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
-import {
-	courseLanguage,
-	courses,
-	filterCourses,
-	filterLevels,
-} from '@/constants'
+import { courseLanguage, filterCourses, filterLevels } from '@/constants'
 import useTranslate from '@/hooks/use-translate'
-import { useSearchParams } from 'next/navigation'
+import { formUrlQuery } from '@/lib/utils'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 interface Props {
 	result: {
@@ -29,8 +25,9 @@ interface Props {
 
 function AllCourses({ result }: Props) {
 	const t = useTranslate()
-
 	const searchParams = useSearchParams()
+	const router = useRouter()
+
 	const page = searchParams.get('page')
 
 	const { courses, isNext, totalCourses } = result
@@ -56,7 +53,7 @@ function AllCourses({ result }: Props) {
 				<div className='flex items-center gap-2'>
 					<p>{t('sortBy')}</p>
 
-					<Select>
+					<Select onValueChange={onUpdateParams}>
 						<SelectTrigger className='w-[120px] bg-gradient-to-r from-secondary to-background'>
 							<SelectValue placeholder={t('filter')} />
 						</SelectTrigger>
@@ -69,8 +66,8 @@ function AllCourses({ result }: Props) {
 						</SelectContent>
 					</Select>
 
-					<Select>
-						<SelectTrigger className='w-[120px] bg-gradient-to-l from-background via-se to-background'>
+					<Select onValueChange={onUpdateParams}>
+						<SelectTrigger className='w-[120px] bg-gradient-to-l from-background via-secondary to-background'>
 							<SelectValue placeholder={t('level')} />
 						</SelectTrigger>
 						<SelectContent>
@@ -82,7 +79,7 @@ function AllCourses({ result }: Props) {
 						</SelectContent>
 					</Select>
 
-					<Select>
+					<Select onValueChange={onUpdateParams}>
 						<SelectTrigger className='w-[120px] bg-gradient-to-l from-secondary to-background'>
 							<SelectValue placeholder={t('language')} />
 						</SelectTrigger>
