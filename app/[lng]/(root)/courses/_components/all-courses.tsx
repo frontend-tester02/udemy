@@ -34,6 +34,16 @@ function AllCourses({ result }: Props) {
 	const page = searchParams.get('page')
 
 	const { courses, isNext, totalCourses } = result
+
+	const onUpdateParams = (value: string) => {
+		const newUrl = formUrlQuery({
+			value,
+			key: 'filter',
+			params: searchParams.toString(),
+		})
+
+		router.push(newUrl)
+	}
 	return (
 		<div className='container mx-auto mt-12 max-w-6xl'>
 			<div className='flex items-center justify-between max-md:flex-col max-md:items-start max-md:space-y-2'>
