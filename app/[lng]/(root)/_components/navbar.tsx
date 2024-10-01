@@ -4,11 +4,11 @@ import Logo from '@/components/shared/logo'
 import ModeToggle from '@/components/shared/mode-toggle'
 import { Button } from '@/components/ui/button'
 import { navLinks } from '@/constants'
-import { LogIn, ShoppingCart } from 'lucide-react'
+import { ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
 import GlobalSearch from './global-search'
 import LanguageDropdown from '@/components/shared/language-dropdown'
-import { SignInButton, SignedIn, SignedOut } from '@clerk/nextjs'
+import { SignInButton, SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs'
 import UserBox from '@/components/shared/user-box'
 import Mobile from './mobile'
 import useTranslate from '@/hooks/use-translate'
@@ -58,15 +58,15 @@ function Navbar() {
 					</SignedIn>
 					<SignedOut>
 						<SignInButton mode='modal'>
-							<Button size={'lg'} rounded={'full'} className='hidden md:flex'>
+							<Button size={'lg'} variant={'ghost'} rounded={'full'}>
 								{t('logIn')}
 							</Button>
 						</SignInButton>
-						<SignInButton mode='modal'>
-							<Button size={'icon'} variant={'ghost'} className='md:hidden'>
-								<LogIn />
+						<SignUpButton mode='modal'>
+							<Button size={'lg'} rounded={'full'}>
+								{t('signUp')}
 							</Button>
-						</SignInButton>
+						</SignUpButton>
 					</SignedOut>
 				</div>
 			</div>
