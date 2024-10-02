@@ -139,7 +139,7 @@ export const getAllCourses = async (params: GetAllCoursesParams) => {
 
 		const skipAmount = (page - 1) * pageSize
 
-		const query: FilterQuery<typeof ICourse> = {}
+		const query: FilterQuery<ICourse> = {}
 
 		if (searchQuery) {
 			query.$or = [
