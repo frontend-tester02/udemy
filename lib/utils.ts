@@ -61,12 +61,44 @@ interface UrlQueryParams {
 	params: string
 	key: string
 	value: string | null
+	toCourses?: boolean
 }
 
-export const formUrlQuery = ({ key, params, value }: UrlQueryParams) => {
+export const formUrlQuery = ({
+	key,
+	params,
+	value,
+	toCourses = false,
+}: UrlQueryParams) => {
 	const currentUrl = qs.parse(params)
 
 	currentUrl[key] = value
+
+	return qs.stringifyUrl(
+		{
+			url: toCourses
+				? `/${window.location.pathname.split('/')[1]}/courses`
+				: window.location.pathname,
+			query: currentUrl,
+		},
+		{ skipNull: true }
+	)
+}
+
+interface RemoveUrlQueryParams {
+	params: string
+	keyToRemmove: string[]
+}
+
+export const removeKeysFromQuery = ({
+	params,
+	keyToRemmove,
+}: RemoveUrlQueryParams) => {
+	const currentUrl = qs.parse(params)
+
+	keyToRemmove.forEach(key => {
+		delete currentUrl[key]
+	})
 
 	return qs.stringifyUrl(
 		{
