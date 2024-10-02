@@ -142,7 +142,7 @@ export const getAllCourses = async (params: GetAllCoursesParams) => {
 		const query: FilterQuery<typeof Course> = {}
 
 		if (searchQuery) {
-			query.$or = [
+			;(query as FilterQuery<{ title: string }>).$or = [
 				{
 					title: { $regex: new RegExp(searchQuery, 'i') },
 				},
