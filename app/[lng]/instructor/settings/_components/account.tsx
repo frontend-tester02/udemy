@@ -39,11 +39,7 @@ function Account(user: IUser) {
 		setIsLoading(true)
 		const promise = updatedUser({
 			clerkId: user.clerkId,
-			updatedData: {
-				email: user.email,
-				fullName: user.fullName,
-				picture: user.picture,
-			},
+			updatedData: values,
 			path: pathname,
 		}).finally(() => setIsLoading(false))
 
