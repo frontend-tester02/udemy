@@ -6,7 +6,7 @@ import { ICourse } from '@/app.types'
 
 function CourseCard(course: ICourse) {
 	return (
-		<Link href={`/courses/${course._id}`}>
+		<Link href={`/course/${course._id}`}>
 			<Card className='group'>
 				<CardContent className='relative h-56 w-full'>
 					<Image
@@ -28,7 +28,7 @@ function CourseCard(course: ICourse) {
 								alt={course.instructor.fullName}
 								width={40}
 								height={40}
-								className='rounded-full object-cover'
+								className='rounded-full'
 							/>
 							<p className='text-sm text-muted-foreground'>
 								{course.instructor.fullName}
