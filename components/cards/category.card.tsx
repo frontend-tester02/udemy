@@ -10,6 +10,7 @@ function CategoryCard(category: ICategory) {
 					alt={category.label}
 					width={100}
 					height={100}
+					className='categories-img'
 				/>
 			</div>
 			<h2 className='mt-2 line-clamp-1 font-spaceGrotesk text-lg'>

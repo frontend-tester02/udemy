@@ -72,6 +72,11 @@
 	@apply hidden;
 }
 
+.categories-img {
+	width: 100px;
+	height: 100px;
+}
+
 /* SEARCH BOX */
 .search-box {
 	width: fit-content;

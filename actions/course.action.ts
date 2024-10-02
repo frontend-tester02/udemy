@@ -200,9 +200,8 @@ export const getAllCourses = async (params: GetAllCoursesParams) => {
 			.limit(pageSize)
 			.sort(sortOptions)
 
-		const totalCourses = await Course.find({ published: true }).countDocuments()
-		const allCourse = await Course.countDocuments(query)
-		const isNext = allCourse > skipAmount + courses.length
+		const totalCourses = await Course.countDocuments(query)
+		const isNext = totalCourses > skipAmount + courses.length
 
 		return { courses, isNext, totalCourses }
 	} catch (error) {
