@@ -139,10 +139,10 @@ export const getAllCourses = async (params: GetAllCoursesParams) => {
 
 		const skipAmount = (page - 1) * pageSize
 
-		const query: FilterQuery<typeof Course> = {}
+		const query: FilterQuery<typeof ICourse> = {}
 
 		if (searchQuery) {
-			;(query as FilterQuery<{ title: string }>).$or = [
+			query.$or = [
 				{
 					title: { $regex: new RegExp(searchQuery, 'i') },
 				},
