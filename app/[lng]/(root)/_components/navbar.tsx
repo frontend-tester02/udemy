@@ -58,12 +58,12 @@ function Navbar() {
 					</SignedIn>
 					<SignedOut>
 						<SignInButton mode='modal'>
-							<Button size={'lg'} variant={'ghost'} rounded={'full'}>
+							<Button size={'lg'} variant={'ghost'} className='rounded-full'>
 								{t('logIn')}
 							</Button>
 						</SignInButton>
 						<SignUpButton mode='modal'>
-							<Button size={'lg'} rounded={'full'}>
+							<Button size={'lg'} className='rounded-full'>
 								{t('signUp')}
 							</Button>
 						</SignUpButton>
