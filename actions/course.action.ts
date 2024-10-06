@@ -208,3 +208,30 @@ export const getAllCourses = async (params: GetAllCoursesParams) => {
 		throw new Error('Something went wrong!')
 	}
 }
+
+export const purchaseCourse = async (course: string, clerkId: string) => {
+	try {
+		await connectToDatabase()
+		const user = await User.findOne({ clerkId })
+		const checkCourse = await Course.findById(course)
+			.select('purchases')
+			.populate({
+				path: 'purchases',
+				model: Purchase,
+				match: { user: user._id },
+			})
+
+		if (checkCourse.purchases.length > 0) {
+			return JSON.parse(JSON.stringify({ statu: 200 }))
+		}
+
+		const purchase = await Purchase.create({ user: user._id, course })
+
+		await Course.findByIdAndUpdate(course, { purchases: purchase._id })
+
+		return JSON.parse(JSON.stringify({ statu: 200 }))
+	} catch (error) {
+		throw new Error('Something went wrong while purchasing course!')
+	}
+}
+
