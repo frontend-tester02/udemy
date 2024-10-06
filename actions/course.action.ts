@@ -11,6 +11,8 @@ import Section from '@/database/section.model'
 import Lesson from '@/database/lesson.model'
 import { calculateTotalDuration } from '@/lib/utils'
 import { FilterQuery } from 'mongoose'
+import Purchase from '@/database/purchase.model'
+import UserProgress from '@/database/user-progress.model'
 
 export const createCourse = async (data: ICreateCourse, clerkId: string) => {
 	try {
