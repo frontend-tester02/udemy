@@ -235,3 +235,40 @@ export const purchaseCourse = async (course: string, clerkId: string) => {
 	}
 }
 
+export const getDashboardCourse = async (clerkId: string, courseId: string) => {
+	try {
+		await connectToDatabase()
+		const course = await Course.findById(courseId).select('title')
+		const sections = await Section.find({ course: courseId })
+			.select('title')
+			.sort({ position: 1 })
+			.populate({
+				path: 'lessons',
+				model: Lesson,
+				select: 'title userProgress',
+				options: { sort: { position: 1 } },
+				populate: {
+					path: 'userProgress',
+					match: { userId: clerkId },
+					model: UserProgress,
+					select: 'lessonId',
+				},
+			})
+
+		const lessons = sections.map(section => section.lessons).flat()
+		const lessonIds = lessons.map(lesson => lesson._id)
+
+		const validCompletedLessons = await UserProgress.find({
+			userId: clerkId,
+			lessonId: { $in: lessonIds },
+			isCompleted: true,
+		})
+
+		const progressPercentage =
+			(validCompletedLessons.length / lessons.length) * 100
+
+		return { course, sections, progressPercentage }
+	} catch (error) {
+		throw new Error('Something went wrong while gettig dashboard course!')
+	}
+}
