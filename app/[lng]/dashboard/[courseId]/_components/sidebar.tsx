@@ -31,7 +31,7 @@ async function Sidebar({ courseId, lng }: Props) {
 			</div>
 
 			<div className='mt-4'>
-				<Sections sections={sections} />
+				<Sections sections={JSON.parse(JSON.stringify(sections))} />
 			</div>
 		</div>
 	)
