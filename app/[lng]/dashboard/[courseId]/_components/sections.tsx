@@ -1,11 +1,62 @@
-import { ISection } from '@/app.types'
+'use client'
+
+import { ILesson, ISection } from '@/app.types'
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from '@/components/ui/accordion'
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+import { cn } from '@/lib/utils'
+import { PlayCircle } from 'lucide-react'
+import Link from 'next/link'
+import {
+	useParams,
+	usePathname,
+	useRouter,
+	useSearchParams,
+} from 'next/navigation'
 
 interface Props {
 	sections: ISection[]
 }
 
 function Sections({ sections }: Props) {
-	return <div>Sections</div>
+	const searchParams = useSearchParams()
+	const router = useRouter()
+	const pathname = usePathname()
+
+	const sectionId = searchParams.get('s')
+
+	const onSelect = (text: string) => {
+		const current = new URLSearchParams(Array.from(searchParams.entries()))
+
+		if (!text) {
+			current.delete('s')
+		} else {
+			current.set('s', text)
+		}
+
+		const search = current.toString()
+		const query = search ? `?${search}` : ''
+
+		router.push(`${pathname}${query}`)
+	}
+	return (
+		<Accordion
+			type='single'
+			collapsible
+			className='mt-1'
+			defaultValue={sectionId!}
+			onValueChange={onSelect}
+		>
+			{sections.map(section => (
+				<SectionList key={section._id} {...section} />
+			))}
+		</Accordion>
+	)
 }
 
 export default Sections
