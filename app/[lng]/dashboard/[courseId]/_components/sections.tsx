@@ -36,3 +36,37 @@ function SectionList(section: ISection) {
 	)
 }
 
+interface LessonProps {
+	lesson: ILesson
+	sectionId: string
+}
+
+function LessonList({ lesson, sectionId }: LessonProps) {
+	const { courseId, lessonId } = useParams()
+	return (
+		<Button
+			className={cn(
+				'mx-auto mt-2 flex h-12 w-[calc(100%-12px)] items-center justify-between gap-x-2 rounded-none p-0 px-2 text-sm',
+				lessonId === lesson._id && 'bg-secondary'
+			)}
+			variant={'ghost'}
+		>
+			<Link
+				href={`/dashboard/${courseId}/${lesson._id}?s=${sectionId}`}
+				className='flex size-full justify-start px-3'
+			>
+				<div className='flex max-w-[90%] items-center gap-x-2'>
+					<div className='flex-1'>
+						<PlayCircle size={16} />
+					</div>
+					{lesson.title.length > 30
+						? `${lesson.title.slice(0, 30)}...`
+						: lesson.title}
+				</div>
+			</Link>
+			<div className='w-[10%]'>
+				<Checkbox />
+			</div>
+		</Button>
+	)
+}
