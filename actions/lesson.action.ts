@@ -89,3 +89,33 @@ export const editLessonPosition = async (params: IUpdatePosition) => {
 		throw new Error('Something went wrong!')
 	}
 }
+
+export const completeLesson = async (
+	lessonId: string,
+	userId: string,
+	path: string
+) => {
+	try {
+		await connectToDatabase()
+		const userProgress = await UserProgress.findOne({ userId, lessonId })
+		if (userProgress) {
+			userProgress.isCompleted = true
+			await userProgress.save()
+		} else {
+			const newUserProgress = new UserProgress({
+				userId,
+				lessonId,
+				isCompleted: true,
+			})
+			const lesson = await Lesson.findById(lessonId)
+			lesson.userProgress.push(newUserProgress._id)
+			await lesson.save()
+			await newUserProgress.save()
+		}
+
+		revalidatePath(path)
+	} catch (error) {
+		throw new Error('Something went wrong!')
+	}
+}
+
