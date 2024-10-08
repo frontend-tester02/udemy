@@ -5,6 +5,7 @@ import { ICreateLesson, ILessonFields, IUpdatePosition } from './types'
 import Section from '@/database/section.model'
 import Lesson from '@/database/lesson.model'
 import { revalidatePath } from 'next/cache'
+import UserProgress from '@/database/user-progress.model'
 
 export const getLessons = async (section: string) => {
 	try {

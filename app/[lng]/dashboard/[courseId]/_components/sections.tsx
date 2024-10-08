@@ -1,5 +1,6 @@
 'use client'
 
+import { completeLesson, uncompleteLesson } from '@/actions/lesson.action'
 import { ILesson, ISection } from '@/app.types'
 import {
 	Accordion,
@@ -10,6 +11,8 @@ import {
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@clerk/nextjs'
+import { CheckedState } from '@radix-ui/react-checkbox'
 import { PlayCircle } from 'lucide-react'
 import Link from 'next/link'
 import {
@@ -18,6 +21,7 @@ import {
 	useRouter,
 	useSearchParams,
 } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 interface Props {
 	sections: ISection[]
@@ -93,7 +97,32 @@ interface LessonProps {
 }
 
 function LessonList({ lesson, sectionId }: LessonProps) {
+	const [isLoading, setIsLoading] = useState(false)
+	const [mount, setMount] = useState(false)
+
 	const { courseId, lessonId } = useParams()
+	const { userId } = useAuth()
+	const pathname = usePathname()
+
+	const isCompleted = lesson.userProgress
+		.map(item => item.lessonId)
+		.includes(lesson._id)
+	const onCheck = (checked: CheckedState) => {
+		setIsLoading(true)
+
+		let promise
+
+		if (checked) {
+			promise = completeLesson(lesson._id, userId!, pathname)
+		} else {
+			promise = uncompleteLesson(lesson._id, pathname)
+		}
+
+		promise.finally(() => setIsLoading(false))
+	}
+
+	useEffect(() => setMount(true), [])
+
 	return (
 		<Button
 			className={cn(
@@ -116,7 +145,15 @@ function LessonList({ lesson, sectionId }: LessonProps) {
 				</div>
 			</Link>
 			<div className='w-[10%]'>
-				<Checkbox />
+				{mount && (
+					<Checkbox
+						defaultChecked={isCompleted}
+						checked={isCompleted}
+						onCheckedChange={onCheck}
+						disabled={isLoading}
+						className={cn(isLoading && 'opacity-50 cursor-not-allowed')}
+					/>
+				)}
 			</div>
 		</Button>
 	)
