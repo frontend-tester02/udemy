@@ -26,7 +26,7 @@ async function Sidebar({ courseId, lng }: Props) {
 				<h1 className='line-clamp-1 text-xl font-medium'>{course.title}</h1>
 				<Progress value={progressPercentage} className='h-4' />
 				<p className='text-sm'>
-					{progressPercentage}% {t('completed')}{' '}
+					{progressPercentage.toFixed(0)}% {t('completed')}{' '}
 				</p>
 			</div>
 
