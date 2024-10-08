@@ -119,3 +119,12 @@ export const completeLesson = async (
 	}
 }
 
+export const uncompleteLesson = async (lessonId: string, path: string) => {
+	try {
+		await connectToDatabase()
+		await UserProgress.findOneAndDelete({ lessonId })
+		revalidatePath(path)
+	} catch (error) {
+		throw new Error('Something went wrong!')
+	}
+}
