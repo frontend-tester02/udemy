@@ -1,6 +1,6 @@
 'use client'
 
-import { updatedUser } from '@/actions/user.action'
+import { updateUser } from '@/actions/user.action'
 import { IUser } from '@/app.types'
 import FillLoading from '@/components/shared/fill-loading'
 import { Button } from '@/components/ui/button'
@@ -37,7 +37,7 @@ function Account(user: IUser) {
 
 	const onSubmit = (values: z.infer<typeof profileSchema>) => {
 		setIsLoading(true)
-		const promise = updatedUser({
+		const promise = updateUser({
 			clerkId: user.clerkId,
 			updatedData: values,
 			path: pathname,
