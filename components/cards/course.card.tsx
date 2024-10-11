@@ -30,7 +30,7 @@ function CourseCard(course: ICourse) {
 								height={40}
 								className='rounded-full'
 							/>
-							<p className='text-sm text-muted-foreground'>
+							<p className='line-clamp-1 text-sm text-muted-foreground'>
 								{course.instructor.fullName}
 							</p>
 						</div>
