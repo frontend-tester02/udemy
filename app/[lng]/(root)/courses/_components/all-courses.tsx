@@ -53,45 +53,46 @@ function AllCourses({ result }: Props) {
 				</h2>
 				<div className='flex items-center gap-2'>
 					<p>{t('sortBy')}</p>
+					<div className='flex flex-wrap'>
+						<Select onValueChange={onUpdateParams}>
+							<SelectTrigger className='w-[120px] bg-gradient-to-r from-secondary to-background'>
+								<SelectValue placeholder={t('filter')} />
+							</SelectTrigger>
+							<SelectContent>
+								{filterCourses.map(item => (
+									<SelectItem key={item.name} value={item.name}>
+										{t(item.label)}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
 
-					<Select onValueChange={onUpdateParams}>
-						<SelectTrigger className='w-[120px] bg-gradient-to-r from-secondary to-background'>
-							<SelectValue placeholder={t('filter')} />
-						</SelectTrigger>
-						<SelectContent>
-							{filterCourses.map(item => (
-								<SelectItem key={item.name} value={item.name}>
-									{t(item.label)}
-								</SelectItem>
-							))}
-						</SelectContent>
-					</Select>
+						<Select onValueChange={onUpdateParams}>
+							<SelectTrigger className='w-[120px] bg-gradient-to-l from-background via-secondary to-background'>
+								<SelectValue placeholder={t('level')} />
+							</SelectTrigger>
+							<SelectContent>
+								{filterLevels.map(item => (
+									<SelectItem key={item.name} value={item.name}>
+										{t(item.label)}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
 
-					<Select onValueChange={onUpdateParams}>
-						<SelectTrigger className='w-[120px] bg-gradient-to-l from-background via-secondary to-background'>
-							<SelectValue placeholder={t('level')} />
-						</SelectTrigger>
-						<SelectContent>
-							{filterLevels.map(item => (
-								<SelectItem key={item.name} value={item.name}>
-									{t(item.label)}
-								</SelectItem>
-							))}
-						</SelectContent>
-					</Select>
-
-					<Select onValueChange={onUpdateParams}>
-						<SelectTrigger className='w-[120px] bg-gradient-to-l from-secondary to-background'>
-							<SelectValue placeholder={t('language')} />
-						</SelectTrigger>
-						<SelectContent>
-							{courseLanguage.map(item => (
-								<SelectItem key={item} value={item} className='capitalize'>
-									{t(item)}
-								</SelectItem>
-							))}
-						</SelectContent>
-					</Select>
+						<Select onValueChange={onUpdateParams}>
+							<SelectTrigger className='w-[120px] bg-gradient-to-l from-secondary to-background'>
+								<SelectValue placeholder={t('language')} />
+							</SelectTrigger>
+							<SelectContent>
+								{courseLanguage.map(item => (
+									<SelectItem key={item} value={item} className='capitalize'>
+										{t(item)}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					</div>
 				</div>
 			</div>
 			<div className='mt-2 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
