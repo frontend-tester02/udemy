@@ -2,7 +2,7 @@ import { model, models, Schema } from 'mongoose'
 
 const ReviewSchema = new Schema(
 	{
-		review: String,
+		data: String,
 		rating: Number,
 		user: { type: Schema.Types.ObjectId, ref: 'User' },
 		courses: { type: Schema.Types.ObjectId, ref: 'Course' },
