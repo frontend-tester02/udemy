@@ -75,7 +75,11 @@ function ReviewModal() {
 				{isLoading && <FillLoading />}
 				<div className='flex flex-col items-center justify-center space-y-4'>
 					<div className='mt-4 font-spaceGrotesk text-xl font-medium'>
-						Ushbu kursni qanday baholaysiz?
+						{review
+							? "Fikringizni o'zgartirishingiz mumkin"
+							: rating
+							? 'Nega bunday baho berdingiz?'
+							: 'Ushbu kursni qanday baholaysiz?'}
 					</div>
 
 					<ReactStars
