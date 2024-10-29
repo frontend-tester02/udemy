@@ -274,3 +274,25 @@ export const getDashboardCourse = async (clerkId: string, courseId: string) => {
 		throw new Error('Something went wrong while gettig dashboard course!')
 	}
 }
+
+export const addFavouriteCourse = async (courseId: string, clerkId: string) => {
+	try {
+		await connectToDatabase()
+		const isFavourite = await User.findOne({
+			clerkId,
+			favouriteCourses: courseId,
+		})
+
+		if (isFavourite) {
+			throw new Error('Course already added to favourite')
+		}
+
+		const user = await User.findOne({ clerkId })
+		await User.findByIdAndUpdate(user._id, {
+			$push: { favouriteCourses: courseId },
+		})
+	} catch (error) {
+		throw new Error('Something went wrong while adding favourite course')
+	}
+}
+
