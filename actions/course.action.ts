@@ -296,3 +296,23 @@ export const addFavouriteCourse = async (courseId: string, clerkId: string) => {
 	}
 }
 
+export const addArchiveCourse = async (courseId: string, clerkId: string) => {
+	try {
+		await connectToDatabase()
+		const isArchive = await User.findOne({
+			clerkId,
+			archiveCourses: courseId,
+		})
+
+		if (isArchive) {
+			throw new Error('Course already added to archive')
+		}
+
+		const user = await User.findOne({ clerkId })
+		await User.findByIdAndUpdate(user._id, {
+			$push: { archiveCourses: courseId },
+		})
+	} catch (error) {
+		throw new Error('Something went wrong while adding archive course')
+	}
+}
