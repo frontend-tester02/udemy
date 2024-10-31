@@ -74,7 +74,7 @@ function FeaturedCourses({ courses }: Props) {
 				opts={{ align: 'start' }}
 				className='mt-6 hidden w-full flex-1 grow md:flex'
 			>
-				<CarouselContent className='flex overflow-x-auto'>
+				<CarouselContent className='flex'>
 					{courses.map(course => (
 						<CarouselItem
 							key={course.title}
