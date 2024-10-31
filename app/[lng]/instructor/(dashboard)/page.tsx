@@ -3,12 +3,11 @@ import Header from '../_components/header'
 import { MonitorPlay } from 'lucide-react'
 import { PiStudent } from 'react-icons/pi'
 import { GrMoney } from 'react-icons/gr'
-// import { courses } from '@/constants'
-// import InstructorCourseCard from '@/components/cards/instructor-course.card'
 import ReviewCard from '@/components/cards/review.card'
 import { getCourses } from '@/actions/course.action'
 import { auth } from '@clerk/nextjs/server'
 import InstructorCourseCard from '@/components/cards/instructor-course.card'
+import { formatAndDivideNumber } from '@/lib/utils'
 
 async function Page() {
 	const { userId } = auth()
@@ -25,10 +24,17 @@ async function Page() {
 				/>
 				<StatisticsCard
 					label='Total students'
-					value='11.000'
+					value={formatAndDivideNumber(result.totalStudents)}
 					Icon={PiStudent}
 				/>
-				<StatisticsCard label='Total Sales' value='$190.00' Icon={GrMoney} />
+				<StatisticsCard
+					label='Total Sales'
+					value={result.totalEarnings.toLocaleString('en-US', {
+						style: 'currency',
+						currency: 'USD',
+					})}
+					Icon={GrMoney}
+				/>
 			</div>
 
 			<Header
