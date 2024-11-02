@@ -1,11 +1,9 @@
 import { Separator } from '@/components/ui/separator'
 import Header from '../_components/header'
 import InstructorReviewCard from '@/components/cards/instructor-review.card'
-import { auth } from '@clerk/nextjs/server'
 import { SearchParamsProps } from '@/app.types'
 
 async function Page({ searchParams }: SearchParamsProps) {
-	const { userId } = auth()
 	return (
 		<>
 			<Header
