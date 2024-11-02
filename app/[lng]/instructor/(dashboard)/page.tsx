@@ -9,11 +9,13 @@ import { auth } from '@clerk/nextjs/server'
 import InstructorCourseCard from '@/components/cards/instructor-course.card'
 import { formatAndDivideNumber } from '@/lib/utils'
 import { getReviews } from '@/actions/review.action'
+import { IReview } from '@/app.types'
 
 async function Page() {
 	const { userId } = auth()
 	const result = await getCourses({ clerkId: userId! })
 	const { reviews, totalReviews } = await getReviews({ clerkId: userId! })
+
 	return (
 		<>
 			<Header title='Dashboard' description='Welcome to your dashboard' />
@@ -57,7 +59,7 @@ async function Page() {
 
 			<Header title='Reviews' description='Here are your latest reviews' />
 			<div className='mt-4 grid grid-cols-3 gap-4'>
-				{reviews.map(review => (
+				{reviews.map((review: IReview) => (
 					<div className='rounded-md bg-background px-4 pb-4' key={review._id}>
 						<ReviewCard review={JSON.parse(JSON.stringify(review))} />
 					</div>
