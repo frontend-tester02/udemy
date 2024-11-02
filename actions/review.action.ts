@@ -71,8 +71,6 @@ export const getReviews = async (params: GetReviewParams) => {
 
 		return { isNext, reviews, totalReviews }
 	} catch (error) {
-		console.log(error)
-
-		// throw new Error('Error getting reviews!')
+		throw new Error('Error getting reviews!')
 	}
 }
