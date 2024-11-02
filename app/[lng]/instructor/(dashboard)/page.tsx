@@ -14,7 +14,9 @@ import { IReview } from '@/app.types'
 async function Page() {
 	const { userId } = auth()
 	const result = await getCourses({ clerkId: userId! })
-	const { reviews, totalReviews } = await getReviews({ clerkId: userId! })
+
+	const courseReviews = await getReviews({ clerkId: userId! })
+	const { reviews = [], totalReviews = 0 } = courseReviews || {}
 
 	return (
 		<>
