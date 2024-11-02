@@ -8,7 +8,7 @@ import { Badge } from '../ui/badge'
 
 function BlogCard(blog: IBlog) {
 	return (
-		<Link href={`/blogs/${blog.slug}`}>
+		<Link href={`/blogs/${blog.slug}`} legacyBehavior>
 			<div className='group grid grid-cols-1 gap-1'>
 				<div className='relative rounded-md bg-secondary'>
 					<Image

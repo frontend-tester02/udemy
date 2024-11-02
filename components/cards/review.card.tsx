@@ -20,7 +20,7 @@ function ReviewCard({ review }: { review: IReview }) {
 					<div className='flex items-center gap-1'>
 						<ReactStars value={review?.rating} edit={false} color2='#DD6B20' />
 						<p className='text-sm opacity-50'>
-							{formatDistanceToNow(new Date(review?.createdAt))} ago
+							{/* {formatDistanceToNow(new Date(review?.createdAt))} ago */}
 						</p>
 					</div>
 				</div>
