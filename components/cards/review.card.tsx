@@ -2,7 +2,7 @@
 import ReactStars from 'react-stars'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { IReview } from '@/app.types'
-import { formatDistanceToNow } from 'date-fns'
+// import { formatDistanceToNow } from 'date-fns'
 
 function ReviewCard({ review }: { review: IReview }) {
 	return (
