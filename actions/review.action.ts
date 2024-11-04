@@ -89,3 +89,16 @@ export const setFlag = async (
 	}
 }
 
+export const getCourseReviews = async (course: string, limit: number) => {
+	try {
+		await connectToDatabase()
+		const reviews = await Review.find({ course, isFlag: false })
+			.sort({ createdAt: -1 })
+			.populate({ path: 'user', model: User, select: 'fullName picture' })
+			.limit(limit)
+
+		return JSON.parse(JSON.stringify(reviews))
+	} catch (error) {
+		throw new Error('Error getting course reviev')
+	}
+}
