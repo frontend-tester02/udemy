@@ -74,3 +74,18 @@ export const getReviews = async (params: GetReviewParams) => {
 		throw new Error('Error getting reviews!')
 	}
 }
+
+export const setFlag = async (
+	reviewId: string,
+	isFlag: boolean,
+	path: string
+) => {
+	try {
+		await connectToDatabase()
+		await Review.findByIdAndUpdate(reviewId, { isFlag })
+		revalidatePath(path)
+	} catch (error) {
+		throw new Error('Error setting flag!')
+	}
+}
+
