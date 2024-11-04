@@ -102,3 +102,36 @@ export const getCourseReviews = async (course: string, limit: number) => {
 		throw new Error('Error getting course reviev')
 	}
 }
+
+export const getReviewsPercentage = async (id: string) => {
+	try {
+		await connectToDatabase()
+		const reviews = await Review.find({ course: id, isFlag: false })
+		const total = reviews.length
+
+		const percantages: { [key: string]: number } = {
+			1: 0,
+			2: 0,
+			3: 0,
+			4: 0,
+			5: 0,
+		}
+
+		reviews.forEach(review => {
+			let rating = review.rating
+			if (rating === 2.5) rating = 3
+			else if (rating === 3.5) rating = 4
+			else if (rating === 4.5) rating = 5
+
+			percantages[rating] += 1
+		})
+
+		for (const key in percantages) {
+			percantages[key] = Math.round((percantages[key] / total) * 100)
+		}
+
+		return percantages
+	} catch (error) {
+		throw new Error('Error getting reviews percantage')
+	}
+}
