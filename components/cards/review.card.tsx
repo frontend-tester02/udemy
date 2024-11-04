@@ -2,7 +2,7 @@
 import ReactStars from 'react-stars'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { IReview } from '@/app.types'
-// import { formatDistanceToNow } from 'date-fns'
+import { formatDistanceToNow } from 'date-fns'
 
 function ReviewCard({ review }: { review: IReview }) {
 	return (
@@ -20,7 +20,7 @@ function ReviewCard({ review }: { review: IReview }) {
 					<div className='flex items-center gap-1'>
 						<ReactStars value={review?.rating} edit={false} color2='#DD6B20' />
 						<p className='text-sm opacity-50'>
-							{/* {formatDistanceToNow(new Date(review?.createdAt))} ago */}
+							{formatDistanceToNow(new Date(review?.createdAt))} ago
 						</p>
 					</div>
 				</div>
