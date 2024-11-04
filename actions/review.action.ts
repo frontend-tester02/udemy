@@ -6,6 +6,7 @@ import User from '@/database/user.model'
 import { connectToDatabase } from '@/lib/mongoose'
 import { GetReviewParams } from './types'
 import Course from '@/database/course.model'
+import { revalidatePath } from 'next/cache'
 
 export const createReview = async (
 	data: Partial<IReview>,
