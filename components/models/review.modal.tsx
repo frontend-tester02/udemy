@@ -17,6 +17,7 @@ import { useAuth } from '@clerk/nextjs'
 import { useParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { IReview } from '@/app.types'
+import useTranslate from '@/hooks/use-translate'
 
 function ReviewModal() {
 	const [rating, setRating] = useState(0)
@@ -25,6 +26,7 @@ function ReviewModal() {
 	const { isOpen, onClose, isLoading, startLoading, stopLoading } = useReview()
 	const { userId } = useAuth()
 	const { courseId } = useParams()
+	const t = useTranslate()
 
 	const form = useForm<z.infer<typeof reviewSchema>>({
 		resolver: zodResolver(reviewSchema),
@@ -46,9 +48,9 @@ function ReviewModal() {
 		promise.then(() => onClose()).finally(() => stopLoading())
 
 		toast.promise(promise, {
-			loading: 'Loading...',
-			success: 'Review created',
-			error: 'Error creating review',
+			loading: t('loading'),
+			success: t('successfully'),
+			error: t('error'),
 		})
 	}
 
@@ -76,10 +78,10 @@ function ReviewModal() {
 				<div className='flex flex-col items-center justify-center space-y-4'>
 					<div className='mt-4 font-spaceGrotesk text-xl font-medium'>
 						{review
-							? "Fikringizni o'zgartirishingiz mumkin"
+							? t('changeReview')
 							: rating
-							? 'Nega bunday baho berdingiz?'
-							: 'Ushbu kursni qanday baholaysiz?'}
+							? t('whyReview')
+							: t('rateCourse')}
 					</div>
 
 					<ReactStars
@@ -103,7 +105,7 @@ function ReviewModal() {
 											<FormControl>
 												<Textarea
 													className='h-36 resize-none border-none bg-secondary font-medium'
-													placeholder='Ushbu kurs haqida qanday fikrda ekanligingizni bizga ayting. U sizga mos keldimi?'
+													placeholder={t('reviewPlaceholder')}
 													{...field}
 													disabled={isLoading}
 												/>
@@ -119,7 +121,7 @@ function ReviewModal() {
 										disabled={isLoading}
 										className='font-spaceGrotesk font-bold'
 									>
-										{review ? "O'zgartirish" : 'Tasdiqlash'}
+										{review ? t('change') : t('submit')}
 									</Button>
 								</div>
 							</form>
