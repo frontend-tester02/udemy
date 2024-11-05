@@ -102,9 +102,8 @@ function AllCourses({ result }: Props) {
 			</div>
 			{courses.length === 0 && (
 				<NoResult
-					title="Ko'rsatish uchun hech qanday kurslar yo'q"
-					description="O'zingizga mos kurslarni toping!🚀 Xozirda sizning so'rovingizga to'g'ri keladigan kurslar
-				izda mavjud emas. Tez kunda qo'shiladi!💡"
+					title={t('noCourses')}
+					description={t('noCourseDescription')}
 				/>
 			)}
 			<div className='mt-10'>

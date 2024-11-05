@@ -7,8 +7,10 @@ import {
 import { calculateTotalDuration } from '@/lib/utils'
 import { ChevronsUpDown, Dot } from 'lucide-react'
 import LessonList from './lesson-list'
+import useTranslate from '@/hooks/use-translate'
 
 function SectionList(section: ISection) {
+	const t = useTranslate()
 	return (
 		<AccordionItem value={section.title} className='mt-1 border-none'>
 			<AccordionTrigger
@@ -22,9 +24,13 @@ function SectionList(section: ISection) {
 					</div>
 				</div>
 				<div className='hidden items-center text-sm lg:flex'>
-					<div>{section.lessons.length} lessons</div>
+					<div>
+						{section.lessons.length} {t('lessons')}
+					</div>
 					<Dot />
-					<div>{calculateTotalDuration(section.lessons)} hours</div>
+					<div>
+						{calculateTotalDuration(section.lessons)} {t('hours')}
+					</div>
 				</div>
 			</AccordionTrigger>
 
