@@ -7,12 +7,17 @@ import useTranslate from '@/hooks/use-translate'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import Checkout from './checkout'
+import { ICard } from '@/app.types'
 
 const stripePromise = loadStripe(
 	process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 )
 
-function CheckoutElement() {
+interface Props {
+	cards: ICard[]
+}
+
+function CheckoutElement({ cards }: Props) {
 	const t = useTranslate()
 	return (
 		<div className='container mx-auto mt-12 max-w-6xl'>
@@ -25,7 +30,7 @@ function CheckoutElement() {
 						<p className='text-sm text-muted-foreground'>{t('fillDetails')}</p>
 
 						<Elements stripe={stripePromise}>
-							<Checkout />
+							<Checkout cards={cards} />
 						</Elements>
 					</CardContent>
 				</Card>
