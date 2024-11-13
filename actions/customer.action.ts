@@ -48,3 +48,20 @@ export const attachPayment = async (
 		throw new Error("Couldn't attach payment method")
 	}
 }
+
+export const getCustomerCards = async (clerkId: string) => {
+	try {
+		await connectToDatabase()
+		const customer = await getCustomer(clerkId)
+
+		const paymentMethods = await stripe.paymentMethods.list({
+			customer: customer.id,
+			type: 'card',
+			limit: 10,
+		})
+
+		return paymentMethods.data
+	} catch (error) {
+		throw new Error("Couldn't retrieve cards")
+	}
+}
