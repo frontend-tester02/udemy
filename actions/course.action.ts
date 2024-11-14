@@ -419,3 +419,31 @@ export const getProgressCourse = async (clerkId: string, courseId: string) => {
 	}
 }
 
+export const getStudentCourse = async (clerkId: string) => {
+	try {
+		await connectToDatabase()
+		const user = await User.findOne({ clerkId }).select('_id')
+
+		const purchasedCourses = await Purchase.find({ user: user._id }).populate({
+			path: 'course',
+			model: Course,
+			select: 'title price _id previewImage slug category currentPrice',
+		})
+
+		const courses = purchasedCourses.filter(el => el.course !== null)
+		const allCourses = []
+
+		for (const item of courses) {
+			const progress = await getProgressCourse(clerkId, item.course._id)
+			allCourses.push({ ...item._doc, progress })
+		}
+
+		const expenses = allCourses
+			.map(c => c.course.currentPrice)
+			.reduce((a, b) => a + b, 0)
+
+		return { allCourses, expenses }
+	} catch (error) {
+		throw new Error('Something went wrong while getting student courses!')
+	}
+}
