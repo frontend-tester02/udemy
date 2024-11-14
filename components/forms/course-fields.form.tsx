@@ -144,7 +144,7 @@ function CourseFieldsForm() {
 						)}
 					/>
 
-					<div className='grid grid-cols-2 gap-4'>
+					<div className='grid gap-4 md:grid-cols-1 lg:grid-cols-2'>
 						<FormField
 							control={form.control}
 							name='learning'
@@ -185,7 +185,7 @@ function CourseFieldsForm() {
 						/>
 					</div>
 
-					<div className='grid grid-cols-3 gap-4'>
+					<div className='grid gap-4 md:grid-cols-1 lg:grid-cols-3'>
 						<FormField
 							control={form.control}
 							name='level'

@@ -56,7 +56,7 @@ function Account(user: IUser) {
 				{isLoading && <FillLoading />}
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3'>
-						<div className='grid grid-cols-2 gap-4'>
+						<div className='grid gap-4 md:grid-cols-1 lg:grid-cols-2'>
 							<FormField
 								control={form.control}
 								name='job'

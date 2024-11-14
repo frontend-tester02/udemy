@@ -21,7 +21,7 @@ async function Page({ params }: LngParams) {
 		<>
 			<Header title={t('dashboard')} description={t('welcomeDashboard')} />
 
-			<div className='mt-4 grid grid-cols-3 gap-4 max-md:grid-cols-1'>
+			<div className='mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
 				<StatisticsCard
 					label={t('myCourses')}
 					value={`${data.allCourses.length}`}
@@ -44,7 +44,7 @@ async function Page({ params }: LngParams) {
 
 			<Header title={t('myCourses')} description={t('myCoursesDescription')} />
 
-			<div className='mt-4 grid grid-cols-3 gap-4 max-md:grid-cols-1'>
+			<div className='mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
 				{data.allCourses
 					.map(item => (
 						<ProgressCourseCard
@@ -61,7 +61,7 @@ async function Page({ params }: LngParams) {
 				description={t('bankAccountsDescription')}
 			/>
 
-			<div className='mt-4 grid grid-cols-2 gap-4 max-md:grid-cols-1'>
+			<div className='mt-4 grid gap-4 max-md:grid-cols-1 md:grid-cols-1 lg:grid-cols-2'>
 				{cards
 					.map(card => (
 						<CreditCard key={card.id} card={JSON.parse(JSON.stringify(card))} />
