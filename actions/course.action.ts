@@ -355,6 +355,27 @@ export const addArchiveCourse = async (courseId: string, clerkId: string) => {
 	}
 }
 
+export const addWishlistCourse = async (courseId: string, clerkId: string) => {
+	try {
+		await connectToDatabase()
+		const isWishlist = await User.findOne({
+			clerkId,
+			wishlistCourses: courseId,
+		})
+
+		if (isWishlist) {
+			throw new Error('Course already added to wishlist')
+		}
+
+		const user = await User.findOne({ clerkId })
+		await User.findByIdAndUpdate(user._id, {
+			$push: { wishlistCourses: courseId },
+		})
+	} catch (error) {
+		throw new Error('Something went wrong while adding wishlist!')
+	}
+}
+
 export const getIsPurchase = async (clerkId: string, courseId: string) => {
 	try {
 		await connectToDatabase()
