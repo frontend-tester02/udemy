@@ -390,3 +390,32 @@ export const getIsPurchase = async (clerkId: string, courseId: string) => {
 		throw new Error('Something went wrong while getting purchased courses!')
 	}
 }
+
+export const getProgressCourse = async (clerkId: string, courseId: string) => {
+	try {
+		await connectToDatabase()
+		const sections = await Section.find({ course: courseId }).populate({
+			path: 'lessons',
+			model: Lesson,
+			options: { sort: { order: 1 } },
+		})
+
+		const lessons = sections.map(section => section.lessons).flat()
+
+		const lessonIds = lessons.map(lesson => lesson._id)
+
+		const validCompletedLessons = await UserProgress.find({
+			userId: clerkId,
+			lessonId: { $in: lessonIds },
+			isCompleted: true,
+		})
+
+		const progressPercentage =
+			(validCompletedLessons.length / lessons.length) * 100
+
+		return progressPercentage
+	} catch (error) {
+		return 0
+	}
+}
+
