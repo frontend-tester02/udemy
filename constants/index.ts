@@ -1,5 +1,7 @@
 import {
+	Bell,
 	Contact,
+	CreditCard,
 	FileCode,
 	GaugeCircle,
 	Home,
@@ -251,3 +253,13 @@ export const editorConfig = {
 	skin: 'oxide-dark',
 	content_css: 'dark',
 }
+
+export const profileNavLinks = [
+	{ label: 'dashboard', route: '/profile', icon: GaugeCircle },
+	{ label: 'myCourses', route: '/profile/my-courses', icon: MonitorPlay },
+	{ label: 'wishlist', route: '/profile/wishlist', icon: ListVideo },
+	{ label: 'creditCards', route: '/profile/credit-cards', icon: CreditCard },
+	{ label: 'reviews', route: '/profile/reviews', icon: MessageSquareMore },
+	{ label: 'notification', route: '/profile/notifications', icon: Bell },
+	{ label: 'settings', route: '/profile/settings', icon: Settings2 },
+]
