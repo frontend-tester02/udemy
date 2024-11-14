@@ -447,3 +447,20 @@ export const getStudentCourse = async (clerkId: string) => {
 		throw new Error('Something went wrong while getting student courses!')
 	}
 }
+
+export const getWishlist = async (clerkId: string) => {
+	try {
+		await connectToDatabase()
+		const user = await User.findOne({ clerkId }).select('wishlistCourses')
+
+		const wishlistCourses = await Course.find({
+			_id: { $in: user.wishlistCourses },
+		})
+			.select('previewImage title slug oldPrice currentPrice instructor')
+			.populate({ path: 'instructor', select: 'fullName picture', model: User })
+
+		return wishlistCourses
+	} catch (error) {
+		throw new Error('Something went wrong while getting wishlist!')
+	}
+}
