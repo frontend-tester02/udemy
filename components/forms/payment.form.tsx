@@ -57,12 +57,12 @@ function PaymentForm({ onHandler, isProfile }: Props) {
 
 	const onSubmit = async (values: z.infer<typeof addressSchema>) => {
 		setLoading(true)
-		onHandler(values)
+		onHandler(values).finally(() => setLoading(false))
 	}
 
 	return (
 		<>
-			<div className='mt-4 flex gap-2'>
+			<div className=' mt-4 flex gap-2'>
 				<div className='w-3/5 rounded-md border bg-secondary px-2 py-3'>
 					<CardNumberElement
 						options={{

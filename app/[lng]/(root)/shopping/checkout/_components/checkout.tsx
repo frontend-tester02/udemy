@@ -20,7 +20,7 @@ import {
 } from '@stripe/react-stripe-js'
 import { AlertCircle, ArrowRight } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { z } from 'zod'
 
 interface Props {
@@ -31,6 +31,12 @@ function Checkout({ cards }: Props) {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState('')
 	const [radioValue, setRadioValue] = useState<string>('0')
+
+	useEffect(() => {
+		if (cards.length === 0) {
+			setRadioValue(`${cards.length + 1}`)
+		}
+	}, [cards])
 
 	const elements = useElements()
 	const stripe = useStripe()
@@ -45,46 +51,68 @@ function Checkout({ cards }: Props) {
 
 		const { address, fullName, city, zip } = values
 
-		const { error, paymentMethod } = await stripe.createPaymentMethod({
-			type: 'card',
-			card: elements.getElement(CardNumberElement)!,
-			billing_details: {
-				name: fullName,
-				address: { line1: address, city, postal_code: zip },
-			},
-		})
+		try {
+			const { error, paymentMethod } = await stripe.createPaymentMethod({
+				type: 'card',
+				card: elements.getElement(CardNumberElement)!,
+				billing_details: {
+					name: fullName,
+					address: { line1: address, city, postal_code: zip },
+				},
+			})
 
-		if (error) {
+			if (error) {
+				setLoading(false)
+				setError(`${t('paymentError')} ${error.message}`)
+			} else {
+				paymentIntent(paymentMethod.id)
+			}
+		} catch (error) {
 			setLoading(false)
-			setError(`${t('paymentError')} ${error.message}`)
-		} else {
-			paymentIntent(paymentMethod.id)
+			const result = error as Error
+			setError(result.message)
 		}
+	}
 
-		setLoading(false)
+	const onSavedCard = (paymentMethod: string) => {
+		setLoading(true)
+		try {
+			paymentIntent(paymentMethod)
+		} catch (error) {
+			setLoading(false)
+			const result = error as Error
+			setError(result.message)
+		}
 	}
 
 	const paymentIntent = async (paymentMethod: string) => {
 		if (!stripe || !elements) return null
 		setLoading(true)
-		const price = totalPrice() + taxes()
-		const clientSecret = await payment(price, userId!, paymentMethod)
 
-		const { error, paymentIntent } = await stripe.confirmCardPayment(
-			clientSecret!
-		)
+		try {
+			const price = totalPrice() + taxes()
+			const clientSecret = await payment(price, userId!, paymentMethod)
 
-		if (error) {
-			setLoading(false)
-			setError(`${t('paymentError')} ${error.message}`)
-		} else {
-			for (const course of carts) {
-				purchaseCourse(course._id, userId!)
+			const { error, paymentIntent } = await stripe.confirmCardPayment(
+				clientSecret!
+			)
+
+			if (error) {
+				setLoading(false)
+				setError(`${t('paymentError')} ${error.message}`)
+			} else {
+				for (const course of carts) {
+					purchaseCourse(course._id, userId!)
+				}
+
+				router.push(`/shopping/success?pi=${paymentIntent.id}`)
+
+				setTimeout(clearCart, 5000)
 			}
-
-			router.push(`/shopping/success?pi=${paymentIntent.id}`)
-
-			setTimeout(clearCart, 5000)
+		} catch (error) {
+			setLoading(false)
+			const result = error as Error
+			setError(result.message)
 		}
 	}
 
@@ -92,7 +120,7 @@ function Checkout({ cards }: Props) {
 		<>
 			{loading && <FillLoading />}
 			{error && (
-				<Alert variant={'destructive'} className='mb-4'>
+				<Alert variant={'destructive'} className='mb-4 mt-2'>
 					<AlertCircle className='size-4' />
 					<AlertTitle>Error</AlertTitle>
 					<AlertDescription>{error}</AlertDescription>
@@ -129,7 +157,7 @@ function Checkout({ cards }: Props) {
 									<Button
 										className='group max-md:w-full'
 										type='button'
-										onClick={() => paymentIntent(card.id)}
+										onClick={() => onSavedCard(card.id)}
 										disabled={loading}
 									>
 										<span>
