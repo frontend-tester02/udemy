@@ -11,7 +11,7 @@ interface ICartStore {
 	removeFromCart: (id: string) => void
 	increment: (id: string) => void
 	decrement: (id: string) => void
-	totalPrice: () => number
+	totalPrice: (percentOff?: number) => number
 	cartsLength: () => number
 	taxes: () => number
 	clearCart: () => void
@@ -64,9 +64,16 @@ export const useCart = create<ICartStore>((set, get) => ({
 
 		set({ carts: newCarts })
 	},
-	totalPrice: () => {
+	totalPrice: (percentOff?: number) => {
 		const { carts } = get()
-		return carts.reduce((acc, cart) => acc + cart.currentPrice, 0)
+
+		const total = carts.reduce((acc, cart) => acc + cart.currentPrice, 0)
+
+		if (percentOff) {
+			return total - (total * percentOff) / 100
+		}
+
+		return total
 	},
 	cartsLength: () => {
 		return get().carts.reduce((acc, cart) => acc + cart.quantity, 0)

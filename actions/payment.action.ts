@@ -41,3 +41,15 @@ export const retrievePayment = async (pi: string) => {
 		throw new Error(result.message)
 	}
 }
+
+
+export const applyCoupon = async(code: string) => {
+	try {
+		const coupon = await stripe.coupons.retrieve(code)
+
+		return JSON.parse(JSON.stringify(coupon))
+	} catch (error) {
+		const result = error as Error
+		throw new Error(result.message)
+	}
+}

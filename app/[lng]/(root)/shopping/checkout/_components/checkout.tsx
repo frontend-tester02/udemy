@@ -25,9 +25,10 @@ import { z } from 'zod'
 
 interface Props {
 	cards: ICard[]
+	coupon: number
 }
 
-function Checkout({ cards }: Props) {
+function Checkout({ cards, coupon }: Props) {
 	const [loading, setLoading] = useState(false)
 	const [error, setError] = useState('')
 	const [radioValue, setRadioValue] = useState<string>('0')
@@ -90,7 +91,7 @@ function Checkout({ cards }: Props) {
 		setLoading(true)
 
 		try {
-			const price = totalPrice() + taxes()
+			const price = totalPrice(coupon) + taxes()
 			const clientSecret = await payment(price, userId!, paymentMethod)
 
 			const { error, paymentIntent } = await stripe.confirmCardPayment(
@@ -128,7 +129,7 @@ function Checkout({ cards }: Props) {
 			)}
 
 			<RadioGroup onValueChange={setRadioValue} value={radioValue}>
-				<div className='flex flex-col space-y-3'>
+				<div className='mt-2 flex flex-col space-y-3'>
 					{cards.map((card, i) => (
 						<div
 							key={card.id}
@@ -162,7 +163,7 @@ function Checkout({ cards }: Props) {
 									>
 										<span>
 											{t('payNow')}{' '}
-											{(totalPrice() + taxes()).toLocaleString('en-US', {
+											{(totalPrice(coupon) + taxes()).toLocaleString('en-US', {
 												style: 'currency',
 												currency: 'USD',
 											})}
