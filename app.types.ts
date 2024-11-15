@@ -102,3 +102,20 @@ export interface ICard {
 		last4: string
 	}
 }
+
+export interface IPayment {
+	map(
+		arg0: (payment: IPayment) => import('react').JSX.Element
+	): import('react').ReactNode | Iterable<import('react').ReactNode>
+	id: string
+	metadata: { orderId: string }
+	created: number
+	amount: number
+	status: string
+	payment_method: {
+		card: {
+			brand: string
+			last4: string
+		}
+	}
+}
