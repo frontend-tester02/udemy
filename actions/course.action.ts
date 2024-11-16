@@ -2,7 +2,12 @@
 
 import Course from '@/database/course.model'
 import { connectToDatabase } from '@/lib/mongoose'
-import { GetAllCoursesParams, GetCourseParams, ICreateCourse } from './types'
+import {
+	GetAllCoursesParams,
+	GetCourseParams,
+	GetPaginationParams,
+	ICreateCourse,
+} from './types'
 import { ICourse, ILesson } from '@/app.types'
 import { revalidatePath } from 'next/cache'
 import User from '@/database/user.model'
@@ -462,5 +467,32 @@ export const getWishlist = async (clerkId: string) => {
 		return wishlistCourses
 	} catch (error) {
 		throw new Error('Something went wrong while getting wishlist!')
+	}
+}
+
+export const getAdminCourses = async (params: GetPaginationParams) => {
+	try {
+		await connectToDatabase()
+		const { page = 1, pageSize = 3 } = params
+
+		const skipAmount = (page - 1) * pageSize
+
+		const courses = await Course.find()
+			.populate({
+				path: 'instructor',
+				select: 'fullName picture',
+				model: User,
+			})
+			.populate('instructor previewImage title')
+			.skip(skipAmount)
+			.limit(pageSize)
+			.sort({ createdAd: -1 })
+
+		const totalCourses = await Course.countDocuments()
+		const isNext = totalCourses > skipAmount + courses.length
+
+		return { courses, isNext, totalCourses }
+	} catch (error) {
+		throw new Error('Something went wrong while getting admin courses!')
 	}
 }

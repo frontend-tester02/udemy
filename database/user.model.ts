@@ -14,6 +14,10 @@ const UserSchema = new Schema(
 		github: String,
 		youtube: String,
 		customerId: String,
+		role: { type: String, default: 'user' },
+		isAdmin: { type: Boolean, default: false },
+		approvedInstructor: { type: Boolean, default: false },
+
 		favouriteCourses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
 		archiveCourses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
 		wishlistCourses: [{ type: Schema.Types.ObjectId, ref: 'Course' }],
