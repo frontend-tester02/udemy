@@ -10,6 +10,7 @@ import {
 	MonitorPlay,
 	Rss,
 	Settings2,
+	User,
 } from 'lucide-react'
 import * as DiIcons from 'react-icons/di'
 
@@ -255,11 +256,19 @@ export const editorConfig = {
 }
 
 export const profileNavLinks = [
-	{ label: 'dashboard', route: '/profile', icon: GaugeCircle },
-	{ label: 'myCourses', route: '/profile/my-courses', icon: MonitorPlay },
-	{ label: 'wishlist', route: '/profile/wishlist', icon: ListVideo },
-	{ label: 'creditCards', route: '/profile/credit-cards', icon: CreditCard },
-	{ label: 'reviews', route: '/profile/reviews', icon: MessageSquareMore },
-	{ label: 'notification', route: '/profile/notifications', icon: Bell },
-	{ label: 'settings', route: '/profile/settings', icon: Settings2 },
+	{ label: 'Dashboard', route: '/profile', icon: GaugeCircle },
+	{ label: 'My Courses', route: '/profile/my-courses', icon: MonitorPlay },
+	{ label: 'Wishlist', route: '/profile/wishlist', icon: ListVideo },
+	{ label: 'Credit Cards', route: '/profile/credit-cards', icon: CreditCard },
+	{ label: 'Reviews', route: '/profile/reviews', icon: MessageSquareMore },
+	{ label: 'Notification', route: '/profile/notifications', icon: Bell },
+	{ label: 'Settings', route: '/profile/settings', icon: Settings2 },
+]
+
+export const adminNavLinks = [
+	{ label: 'Dashboard', route: '/admin', icon: GaugeCircle },
+	{ label: 'All courses', route: '/admin/all-courses', icon: MonitorPlay },
+	{ label: 'Instructors', route: '/admin/instructors', icon: User },
+	{ label: 'Reviews', route: '/admin/reviews', icon: MessageSquareMore },
+	{ label: 'Notifications', route: '/admin/notifications', icon: Bell },
 ]
