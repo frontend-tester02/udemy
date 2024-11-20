@@ -37,7 +37,7 @@ export const updateUser = async (data: IUpdateUser) => {
 		const { clerkId, updatedData, path } = data
 		const updateduser = await User.findOneAndUpdate({ clerkId }, updatedData)
 		if (path) return revalidatePath(path)
-		return updateduser
+		return JSON.parse(JSON.stringify(updateduser))
 	} catch (error) {
 		throw new Error('Error updating user. Please try again.')
 	}

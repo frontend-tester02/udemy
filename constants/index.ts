@@ -261,7 +261,7 @@ export const profileNavLinks = [
 	{ label: 'Wishlist', route: '/profile/wishlist', icon: ListVideo },
 	{ label: 'Credit Cards', route: '/profile/credit-cards', icon: CreditCard },
 	{ label: 'Reviews', route: '/profile/reviews', icon: MessageSquareMore },
-	{ label: 'Notification', route: '/profile/notifications', icon: Bell },
+	{ label: 'Notifications', route: '/profile/notifications', icon: Bell },
 	{ label: 'Settings', route: '/profile/settings', icon: Settings2 },
 ]
 
