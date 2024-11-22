@@ -45,7 +45,7 @@ function SecondForm({ onHandler }: Props) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								Portfolio website <span className='text-red-500'>*</span>
+								{t('portfolioWebsite')} <span className='text-red-500'>*</span>
 							</FormLabel>
 							<FormControl>
 								<Input
@@ -64,7 +64,7 @@ function SecondForm({ onHandler }: Props) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								Full name <span className='text-red-500'>*</span>
+								Linkedin <span className='text-red-500'>*</span>
 							</FormLabel>
 							<FormControl>
 								<Input
@@ -83,7 +83,7 @@ function SecondForm({ onHandler }: Props) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								Mobile phone <span className='text-red-500'>*</span>
+								GitHub <span className='text-red-500'>*</span>
 							</FormLabel>
 							<FormControl>
 								<Input
@@ -101,7 +101,7 @@ function SecondForm({ onHandler }: Props) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								Mobile phone <span className='text-red-500'>*</span>
+								YouTube<span className='text-red-500'>*</span>
 							</FormLabel>
 							<FormControl>
 								<Input
@@ -115,7 +115,7 @@ function SecondForm({ onHandler }: Props) {
 				/>
 
 				<Button className='w-fit' type='submit' size={'sm'}>
-					<span>Next step</span>
+					<span>{t('nextStep')}</span>
 				</Button>
 			</form>
 		</Form>

@@ -56,7 +56,7 @@ function FirstForm({ onHandler }: Props) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								Email address <span className='text-red-500'>*</span>
+								{t('emailAddress')} <span className='text-red-500'>*</span>
 							</FormLabel>
 							<FormControl>
 								<Input
@@ -76,7 +76,7 @@ function FirstForm({ onHandler }: Props) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								Full name <span className='text-red-500'>*</span>
+								{t('fullName')} <span className='text-red-500'>*</span>
 							</FormLabel>
 							<FormControl>
 								<Input
@@ -95,7 +95,7 @@ function FirstForm({ onHandler }: Props) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								Mobile phone <span className='text-red-500'>*</span>
+								{t('mobilePhone')} <span className='text-red-500'>*</span>
 							</FormLabel>
 							<FormControl>
 								<Input
@@ -110,7 +110,7 @@ function FirstForm({ onHandler }: Props) {
 				/>
 
 				<Button className='w-fit' type='submit' size={'sm'}>
-					<span>Next step</span>
+					<span>{t('nextStep')}</span>
 				</Button>
 			</form>
 		</Form>

@@ -46,7 +46,7 @@ function ThirdForm({ onHandler }: Props) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								Your job <span className='text-red-500'>*</span>
+								{t('yourJob')} <span className='text-red-500'>*</span>
 							</FormLabel>
 							<FormControl>
 								<Input
@@ -65,12 +65,12 @@ function ThirdForm({ onHandler }: Props) {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>
-								Bio <span className='text-red-500'>*</span>
+								{t('bio')} <span className='text-red-500'>*</span>
 							</FormLabel>
 							<FormControl>
 								<Textarea
 									className='h-32 resize-none bg-primary/10'
-									placeholder='Tell us about yourself'
+									placeholder={t('bioPlaceholder')}
 									{...field}
 								/>
 							</FormControl>
@@ -79,7 +79,7 @@ function ThirdForm({ onHandler }: Props) {
 				/>
 
 				<Button className='w-fit' type='submit' size={'sm'}>
-					<span>Next step</span>
+					<span>{t('nextStep')}</span>
 				</Button>
 			</form>
 		</Form>

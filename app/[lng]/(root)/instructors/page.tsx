@@ -11,10 +11,7 @@ async function Page({ searchParams }: SearchParamsProps) {
 
 	return (
 		<>
-			<TopBar
-				label='All instructors'
-				description='View all instructors and their courses. This is the list of all instrucotrs'
-			/>
+			<TopBar label='allInstructors' description='allInstructorsDescription' />
 
 			<div className='container mx-auto mt-12 max-w-6xl'>
 				<div className='mt-4 grid grid-cols-3 gap-4'>
