@@ -14,7 +14,7 @@ async function Page({ searchParams }: SearchParamsProps) {
 				description='Here are all the courses you have'
 			/>
 
-			<div className='mt-4 grid grid-cols-3 gap-4'>
+			<div className='mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
 				{courseData.courses.map(course => (
 					<AdminCourseCard
 						key={course._id}

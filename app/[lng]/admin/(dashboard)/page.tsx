@@ -1,16 +1,23 @@
 import { getAdminCourses } from '@/actions/course.action'
 import { getBalance } from '@/actions/payment.action'
 import { getAdminReviews } from '@/actions/review.action'
-import { getAdminInstructors } from '@/actions/user.action'
+import { getAdminInstructors, getRole } from '@/actions/user.action'
 import AdminCourseCard from '@/components/cards/admin-course.card'
 import InstructorReviewCard from '@/components/cards/instructor-review.card'
 import InstructorCard from '@/components/cards/instructor.card'
 import StatisticsCard from '@/components/cards/statistics.card'
 import Header from '@/components/shared/header'
+import { auth } from '@clerk/nextjs/server'
 import { MessageSquare, MonitorPlay, User } from 'lucide-react'
+import { redirect } from 'next/navigation'
 import { GrMoney } from 'react-icons/gr'
 
 async function Page() {
+	const { userId } = auth()
+	const user = await getRole(userId!)
+
+	if (!user.isAdmin) return redirect('/')
+
 	const courseData = await getAdminCourses({})
 	const reviewData = await getAdminReviews({})
 	const instructorData = await getAdminInstructors({})
@@ -20,7 +27,7 @@ async function Page() {
 		<>
 			<Header title='Dashboard' description='Welcome to your dashboard' />
 
-			<div className='mt-4 grid grid-cols-4 gap-4'>
+			<div className='mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4'>
 				<StatisticsCard
 					label='All Courses'
 					value={`${courseData.totalCourses}`}
@@ -51,7 +58,7 @@ async function Page() {
 				description='Here are all the courses you have'
 			/>
 
-			<div className='mt-4 grid grid-cols-3 gap-4'>
+			<div className='mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
 				{courseData.courses.map(course => (
 					<AdminCourseCard
 						key={course._id}
@@ -62,7 +69,7 @@ async function Page() {
 
 			<Header title='Reviews' description='Here are your latest reviews' />
 
-			<div className='mt-4 grid grid-cols-3 gap-4'>
+			<div className='mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
 				{reviewData.reviews.map(review => (
 					<InstructorReviewCard
 						key={review._id}
@@ -73,10 +80,10 @@ async function Page() {
 			</div>
 
 			<Header title='Instructors' description='Here are your instructors' />
-			<div className='mt-4 grid grid-cols-3 gap-4'>
+			<div className='mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
 				{instructorData.instructors.map(item => (
 					<InstructorCard
-						key={item.name}
+						key={item._id}
 						instructor={JSON.parse(JSON.stringify(item))}
 					/>
 				))}

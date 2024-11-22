@@ -10,9 +10,15 @@ import InstructorCourseCard from '@/components/cards/instructor-course.card'
 import { formatAndDivideNumber } from '@/lib/utils'
 import { getReviews } from '@/actions/review.action'
 import { IReview } from '@/app.types'
+import { getRole } from '@/actions/user.action'
+import { redirect } from 'next/navigation'
 
 async function Page() {
 	const { userId } = auth()
+	const user = await getRole(userId!)
+
+	if (user.role !== 'instructor') return redirect('/')
+
 	const result = await getCourses({ clerkId: userId! })
 
 	const courseReviews = await getReviews({ clerkId: userId! })
@@ -55,7 +61,10 @@ async function Page() {
 
 			<div className='mt-4 grid grid-cols-1 gap-4  md:grid-cols-2 lg:grid-cols-3'>
 				{result.courses.map(course => (
-					<InstructorCourseCard key={course.title} course={course} />
+					<InstructorCourseCard
+						key={course.title}
+						course={JSON.parse(JSON.stringify(course))}
+					/>
 				))}
 			</div>
 
