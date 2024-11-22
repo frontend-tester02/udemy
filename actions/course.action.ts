@@ -42,6 +42,7 @@ export const getCourses = async (params: GetCourseParams) => {
 		const courses = await Course.find({ instructor: _id })
 			.skip(skipAmount)
 			.limit(pageSize)
+			.populate({ path: 'instructor', select: 'fullName picture', model: User })
 
 		const totalCourses = await Course.find({ instructor: _id }).countDocuments()
 		const isNext = totalCourses > skipAmount + courses.length
