@@ -20,6 +20,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import useTranslate from '@/hooks/use-translate'
+import { sendNotification } from '@/actions/notification.action'
 
 function InstructorForm() {
 	const [progress, setProgress] = useState(33)
@@ -71,7 +72,7 @@ function InstructorForm() {
 		const onSubmit = async (values: z.infer<typeof bioSchema>) => {
 			setLoading(true)
 
-			return await updateUser({
+			const upd = updateUser({
 				clerkId: userId!,
 				updatedData: { ...values, approvedInstructor: true },
 			})
@@ -79,6 +80,10 @@ function InstructorForm() {
 					setStep(4)
 				})
 				.finally(() => setLoading(false))
+
+			const not = sendNotification(userId!, 'messageInstructorApproved')
+
+			return Promise.all([upd, not])
 		}
 		return (
 			<>

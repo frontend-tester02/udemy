@@ -1,5 +1,6 @@
 'use client'
 
+import { sendNotification } from '@/actions/notification.action'
 import { updateUser } from '@/actions/user.action'
 import { IUser } from '@/app.types'
 import { Button } from '@/components/ui/button'
@@ -29,13 +30,22 @@ function InstructorItem({ instructor }: Props) {
 		const isConfirmed = confirm(`Aru you sure you want to ${msg} this user?`)
 
 		if (isConfirmed) {
-			const promise = updateUser({
+			const upd = updateUser({
 				clerkId: instructor.clerkId,
 				updatedData: {
 					role: instructor.role === 'user' ? 'instructor' : 'user',
 				},
 				path: pathname,
 			})
+
+			const not = sendNotification(
+				instructor.clerkId,
+				`messageRoleChanged ${
+					instructor.role === 'user' ? 'instructor' : 'user'
+				}`
+			)
+
+			const promise = Promise.all([upd, not])
 
 			toast.promise(promise, {
 				loading: 'Loading...',
@@ -51,13 +61,20 @@ function InstructorItem({ instructor }: Props) {
 		)
 
 		if (isConfirmed) {
-			const promise = updateUser({
+			const upd = updateUser({
 				clerkId: instructor.clerkId,
 				updatedData: {
 					isAdmin: true,
 				},
 				path: pathname,
 			})
+
+			const not = sendNotification(
+				instructor.clerkId,
+				instructor.isAdmin ? 'messageYoureNotAdmin' : 'messageYoureAdmin'
+			)
+
+			const promise = Promise.all([upd, not])
 
 			toast.promise(promise, {
 				loading: 'Loading...',
@@ -73,7 +90,7 @@ function InstructorItem({ instructor }: Props) {
 		)
 
 		if (isConfirmed) {
-			const promise = updateUser({
+			const upd = updateUser({
 				clerkId: instructor.clerkId,
 				updatedData: {
 					approvedInstructor: false,
@@ -81,6 +98,13 @@ function InstructorItem({ instructor }: Props) {
 				},
 				path: pathname,
 			})
+
+			const not = sendNotification(
+				instructor.clerkId,
+				'messageDeleteInstructor'
+			)
+
+			const promise = Promise.all([upd, not])
 
 			toast.promise(promise, {
 				loading: 'Loading...',
@@ -129,7 +153,9 @@ function InstructorItem({ instructor }: Props) {
 						<DropdownMenuItem onClick={onRoleChange}>
 							{instructor.role === 'instructor' ? 'Disapprove' : 'Approve'}
 						</DropdownMenuItem>
-						<DropdownMenuItem onClick={onAdmin}>Admin</DropdownMenuItem>
+						<DropdownMenuItem onClick={onAdmin}>
+							{instructor.isAdmin ? 'Remove admin' : 'Make admin'}
+						</DropdownMenuItem>
 						<DropdownMenuItem onClick={onDelete}>Delete</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>

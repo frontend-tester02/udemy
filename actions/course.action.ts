@@ -42,7 +42,11 @@ export const getCourses = async (params: GetCourseParams) => {
 		const courses = await Course.find({ instructor: _id })
 			.skip(skipAmount)
 			.limit(pageSize)
-			.populate({ path: 'instructor', select: 'fullName picture', model: User })
+			.populate({
+				path: 'instructor',
+				select: 'fullName picture clerkId',
+				model: User,
+			})
 
 		const totalCourses = await Course.find({ instructor: _id }).countDocuments()
 		const isNext = totalCourses > skipAmount + courses.length
@@ -118,7 +122,7 @@ export const getFeaturedCourses = cache(async () => {
 			.select('previewImage title slug oldPrice currentPrice instructor')
 			.populate({
 				path: 'instructor',
-				select: 'fullName picture',
+				select: 'fullName picture clerkId',
 				model: User,
 			})
 
@@ -138,7 +142,7 @@ export const getDetailedCourse = cache(async (id: string) => {
 			)
 			.populate({
 				path: 'instructor',
-				select: 'fullName picture',
+				select: 'fullName picture clerkId',
 				model: User,
 			})
 
@@ -239,7 +243,7 @@ export const getAllCourses = async (params: GetAllCoursesParams) => {
 			.select('previewImage title slug _id oldPrice currentPrice instructor')
 			.populate({
 				path: 'instructor',
-				select: 'fullName picture',
+				select: 'fullName picture clerkId',
 				model: User,
 			})
 			.skip(skipAmount)
@@ -463,7 +467,11 @@ export const getWishlist = async (clerkId: string) => {
 			_id: { $in: user.wishlistCourses },
 		})
 			.select('previewImage title slug oldPrice currentPrice instructor')
-			.populate({ path: 'instructor', select: 'fullName picture', model: User })
+			.populate({
+				path: 'instructor',
+				select: 'fullName picture clerkId',
+				model: User,
+			})
 
 		return wishlistCourses
 	} catch (error) {
@@ -481,7 +489,7 @@ export const getAdminCourses = async (params: GetPaginationParams) => {
 		const courses = await Course.find()
 			.populate({
 				path: 'instructor',
-				select: 'fullName picture',
+				select: 'fullName picture clerkId',
 				model: User,
 			})
 			.populate('instructor previewImage title')

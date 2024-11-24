@@ -259,7 +259,7 @@ export const profileNavLinks = [
 	{ label: 'dashboard', route: '/profile', icon: GaugeCircle },
 	{ label: 'myCourses', route: '/profile/my-courses', icon: MonitorPlay },
 	{ label: 'wishlist', route: '/profile/wishlist', icon: ListVideo },
-	{ label: 'credit Cards', route: '/profile/credit-cards', icon: CreditCard },
+	{ label: 'creditCards', route: '/profile/credit-cards', icon: CreditCard },
 	{ label: 'reviews', route: '/profile/reviews', icon: MessageSquareMore },
 	{ label: 'notifications', route: '/profile/notifications', icon: Bell },
 	{ label: 'settings', route: '/profile/settings', icon: Settings2 },

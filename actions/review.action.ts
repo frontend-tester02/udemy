@@ -147,7 +147,7 @@ export const getAdminReviews = async (params: GetPaginationParams) => {
 		const reviews = await Review.find()
 			.populate({
 				path: 'user',
-				select: 'fullName picture',
+				select: 'fullName picture clerkId',
 				model: User,
 			})
 			.populate({
