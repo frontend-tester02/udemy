@@ -1,4 +1,5 @@
 import {
+	ArchiveIcon,
 	Bell,
 	Contact,
 	CreditCard,
@@ -10,6 +11,7 @@ import {
 	MonitorPlay,
 	Rss,
 	Settings2,
+	Star,
 	User,
 } from 'lucide-react'
 import * as DiIcons from 'react-icons/di'
@@ -259,6 +261,16 @@ export const profileNavLinks = [
 	{ label: 'dashboard', route: '/profile', icon: GaugeCircle },
 	{ label: 'myCourses', route: '/profile/my-courses', icon: MonitorPlay },
 	{ label: 'wishlist', route: '/profile/wishlist', icon: ListVideo },
+	{
+		label: 'favouriteCourses',
+		route: '/profile/favourite-courses',
+		icon: Star,
+	},
+	{
+		label: 'archiveCourses',
+		route: '/profile/archive-courses',
+		icon: ArchiveIcon,
+	},
 	{ label: 'creditCards', route: '/profile/credit-cards', icon: CreditCard },
 	{ label: 'reviews', route: '/profile/reviews', icon: MessageSquareMore },
 	{ label: 'notifications', route: '/profile/notifications', icon: Bell },

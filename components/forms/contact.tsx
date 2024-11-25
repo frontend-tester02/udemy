@@ -118,7 +118,7 @@ function ContactForm() {
 					type='submit'
 					disabled={isLoading}
 				>
-					<span>Send</span>
+					<span>{t('send')}</span>
 					<Send className='ml-2 size-4' />
 				</Button>
 			</form>

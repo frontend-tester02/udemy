@@ -479,6 +479,48 @@ export const getWishlist = async (clerkId: string) => {
 	}
 }
 
+export const getFavouriteCourses = async (clerkId: string) => {
+	try {
+		await connectToDatabase()
+		const user = await User.findOne({ clerkId }).select('favouriteCourses')
+
+		const favouriteCourses = await Course.find({
+			_id: { $in: user.favouriteCourses },
+		})
+			.select('previewImage title slug oldPrice currentPrice instructor')
+			.populate({
+				path: 'instructor',
+				select: 'fullName picture clerkId',
+				model: User,
+			})
+
+		return favouriteCourses
+	} catch (error) {
+		throw new Error('Something went wrong while getting wishlist!')
+	}
+}
+
+export const getArchiveCourses = async (clerkId: string) => {
+	try {
+		await connectToDatabase()
+		const user = await User.findOne({ clerkId }).select('archiveCourses')
+
+		const archiveCourses = await Course.find({
+			_id: { $in: user.archiveCourses },
+		})
+			.select('previewImage title slug oldPrice currentPrice instructor')
+			.populate({
+				path: 'instructor',
+				select: 'fullName picture clerkId',
+				model: User,
+			})
+
+		return archiveCourses
+	} catch (error) {
+		throw new Error('Something went wrong while getting wishlist!')
+	}
+}
+
 export const getAdminCourses = async (params: GetPaginationParams) => {
 	try {
 		await connectToDatabase()
