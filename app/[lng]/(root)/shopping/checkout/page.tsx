@@ -4,6 +4,12 @@ import { LngParams } from '@/types'
 import CheckoutElement from './_components/checkout-element'
 import { auth } from '@clerk/nextjs/server'
 import { getCustomerCards } from '@/actions/customer.action'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Udemy | Checkout',
+	description: 'Course purchase page.',
+}
 
 async function Page({ params }: LngParams) {
 	const { userId } = auth()

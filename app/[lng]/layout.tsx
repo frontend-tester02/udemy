@@ -25,9 +25,28 @@ export async function generateStaticParams() {
 	return languages.map(lng => ({ lng }))
 }
 export const metadata: Metadata = {
+	metadataBase: new URL('https://shokh-udemy.vercel.app'),
 	title: 'Udemy',
-	description: 'Startup Next.js project',
+	description:
+		'Udemy, Programming courses, startup projects and best qualitiy eduaction',
+	authors: [
+		{ name: 'Nuriddinov Shokhrukh', url: 'https://shokh-udemy.vercel.app' },
+	],
 	icons: { icon: '/logo.svg' },
+	openGraph: {
+		title: 'Udemy | Udemy courses',
+		description:
+			'Udemy, Programming courses, startup projects and best qualitiy eduaction',
+		type: 'website',
+		url: 'https://shokh-udemy.vercel.app',
+		locale: 'en_US',
+		images: 'https://media.graphassets.com/f4jkBWQ6SVaKwySKRNQT',
+		countryName: 'Uzbekistan',
+		siteName: 'Udemy',
+		emails: 'nuriddinovshokhrukh@gmail.com',
+	},
+	keywords:
+		'Udemy, Udemy programming courses, NextJS, NextJS full course, ReactJs, ReactJS full course, Shokh udemy, Startup udemy, Udemy courses, Shokh udemy courses, Startup project, Shokh startup, Programming courses, ',
 }
 
 interface Props extends ChildProps {

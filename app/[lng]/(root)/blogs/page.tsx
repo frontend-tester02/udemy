@@ -1,6 +1,13 @@
 import BlogCard from '@/components/cards/blog.card'
 import TopBar from '@/components/shared/top-bar'
 import { getBlogs } from '@/service/blog.service'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Udemy | Blogs',
+	description:
+		'We have news and article about programming, marketing, startup projects and design.',
+}
 
 async function Page() {
 	const blogs = await getBlogs()

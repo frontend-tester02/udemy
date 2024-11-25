@@ -10,6 +10,29 @@ import SocialMedia from './_components/social-media'
 import NoResult from '@/components/shared/no-result'
 import CourseCard from '@/components/cards/course.card'
 import Pagination from '@/components/shared/pagination'
+import { Metadata, ResolvingMetadata } from 'next'
+
+export async function generateMetadata(
+	{
+		params,
+	}: {
+		params: { instructorId: string }
+	},
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const user = await getUserById(params.instructorId)
+
+	return {
+		title: `Teacher: ${user.fullName}`,
+		description: `Information about teacher: ${user.bio}`,
+
+		openGraph: {
+			images: user.picture,
+			title: `Teacher: ${user.fullName}`,
+			description: `Information about teacher: ${user.bio}`,
+		},
+	}
+}
 
 interface Props extends SearchParamsProps {
 	params: { lng: string; instructorId: string }

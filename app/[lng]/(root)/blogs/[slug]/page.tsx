@@ -4,9 +4,32 @@ import { format } from 'date-fns'
 import { ArrowRight, CalendarDays, Clock, Minus } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import ShareBtns from './-components/share-btns'
+import ShareBtns from './_components/share-btns'
 import parse from 'html-react-parser'
 import { Separator } from '@/components/ui/separator'
+import { Metadata, ResolvingMetadata } from 'next'
+
+export async function generateMetadata(
+	{
+		params,
+	}: {
+		params: { slug: string }
+	},
+	parent: ResolvingMetadata
+): Promise<Metadata> {
+	const blog = await getDetailedBlog(params.slug)
+
+	return {
+		title: blog.title,
+		description: blog.description,
+
+		openGraph: {
+			images: blog.image.url,
+			title: blog.title,
+			description: blog.description,
+		},
+	}
+}
 
 async function Page({ params }: { params: { slug: string } }) {
 	const blog = await getDetailedBlog(params.slug)

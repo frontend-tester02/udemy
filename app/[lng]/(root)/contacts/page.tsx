@@ -3,6 +3,13 @@ import TopBar from '@/components/shared/top-bar'
 import { translation } from '@/i18n/server'
 import { LngParams } from '@/types'
 import { Mail, Phone } from 'lucide-react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Udemy | Contact',
+	description:
+		'If you have any questions, you can contact us. Our operators are ready to help you.',
+}
 
 async function Page({ params: { lng } }: LngParams) {
 	const { t } = await translation(lng)

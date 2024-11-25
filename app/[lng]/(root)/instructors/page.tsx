@@ -3,7 +3,14 @@ import { SearchParamsProps } from '@/app.types'
 import InstructorCard from '@/components/cards/instructor.card'
 import Pagination from '@/components/shared/pagination'
 import TopBar from '@/components/shared/top-bar'
+import { Metadata } from 'next'
 import React from 'react'
+
+export const metadata: Metadata = {
+	title: 'Udemy | Instructors',
+	description:
+		'List of all teachers available on our platform. Find the right teacher for you and start learning.',
+}
 
 async function Page({ searchParams }: SearchParamsProps) {
 	const page = searchParams.page ? +searchParams.page : 1

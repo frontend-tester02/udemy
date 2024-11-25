@@ -1,6 +1,13 @@
 import TopBar from '@/components/shared/top-bar'
 import Image from 'next/image'
 import InstructorForm from './_components/instructor-form'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+	title: 'Udemy | Become an Instructor',
+	description:
+		'Fill up this form to become an Instructor. Create a course and start learning!',
+}
 
 async function Page() {
 	return (
