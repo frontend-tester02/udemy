@@ -1,4 +1,5 @@
 import { addArchiveCourse, addFavouriteCourse } from '@/actions/course.action'
+import { sendNotification } from '@/actions/notification.action'
 import {
 	DropdownMenuContent,
 	DropdownMenuItem,
@@ -25,12 +26,17 @@ function DropdownContent() {
 	}
 
 	const onAdd = (type: 'favourite' | 'archive') => {
-		let promise
+		let upd
+		let not
 		if (type === 'favourite') {
-			promise = addFavouriteCourse(`${courseId}`, userId!)
+			upd = addFavouriteCourse(`${courseId}`, userId!)
+			not = sendNotification(userId!, 'messageAddFavourite')
 		} else {
-			promise = addArchiveCourse(`${courseId}`, userId!)
+			upd = addArchiveCourse(`${courseId}`, userId!)
+			not = sendNotification(userId!, 'messageAddArchive')
 		}
+
+		const promise = Promise.all([upd, not])
 
 		toast.promise(promise, {
 			loading: t('loading'),

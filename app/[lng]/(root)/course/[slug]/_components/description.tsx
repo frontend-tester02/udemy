@@ -19,6 +19,7 @@ import { useCart } from '@/hooks/use-cart'
 import Link from 'next/link'
 import { toast } from 'sonner'
 import { addWishlistCourse } from '@/actions/course.action'
+import { sendNotification } from '@/actions/notification.action'
 
 interface Props {
 	course: ICourse
@@ -43,9 +44,13 @@ function Description({ course, isPurchase }: Props) {
 		if (!userId) return toast.error('Please Sign Up!')
 		setIsLoading(true)
 
-		const promise = addWishlistCourse(course._id, userId!).finally(() =>
+		const upd = addWishlistCourse(course._id, userId!).finally(() =>
 			setIsLoading(false)
 		)
+
+		const not = sendNotification(userId!, 'messageAddWishlist')
+
+		const promise = Promise.all([upd, not])
 
 		toast.promise(promise, {
 			loading: t('loading'),

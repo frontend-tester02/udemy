@@ -18,6 +18,7 @@ import { useParams } from 'next/navigation'
 import { toast } from 'sonner'
 import { IReview } from '@/app.types'
 import useTranslate from '@/hooks/use-translate'
+import { sendNotification } from '@/actions/notification.action'
 
 function ReviewModal() {
 	const [rating, setRating] = useState(0)
@@ -37,15 +38,20 @@ function ReviewModal() {
 		startLoading()
 		const data = { ...values, rating }
 
-		let promise
+		let upd
+		let not
 
 		if (review) {
-			promise = updateReview({ ...data, _id: review._id })
+			upd = updateReview({ ...data, _id: review._id })
+			not = sendNotification(userId!, 'messageUpdateReview')
 		} else {
-			promise = createReview(data, userId!, `${courseId}`)
+			upd = createReview(data, userId!, `${courseId}`)
+			not = sendNotification(userId!, 'messageSendReview')
 		}
 
-		promise.then(() => onClose()).finally(() => stopLoading())
+		upd.then(() => onClose()).finally(() => stopLoading())
+
+		const promise = Promise.all([upd, not])
 
 		toast.promise(promise, {
 			loading: t('loading'),
