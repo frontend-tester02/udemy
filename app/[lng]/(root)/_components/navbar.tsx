@@ -55,8 +55,9 @@ function Navbar() {
 								variant={cartsLength() ? 'secondary' : 'ghost'}
 								asChild
 								className='relative'
+								aria-label='shopping-cart'
 							>
-								<Link href={'/shopping/cart'}>
+								<Link href={'/shopping/cart'} aria-label='shopping-cart'>
 									<ShoppingCart />
 									{cartsLength() ? (
 										<div

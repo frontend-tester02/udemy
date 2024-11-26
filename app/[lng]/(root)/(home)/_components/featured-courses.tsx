@@ -54,8 +54,7 @@ function FeaturedCourses({ courses }: Props) {
 							key={item.name}
 							variant={item.name === 'all' ? 'secondary' : 'ghost'}
 							className={cn(
-								'font-medium max-md:w-full max-md:bg-secondary rounded-full',
-								item.name === 'all' && 'text-primary'
+								'font-medium max-md:w-full max-md:bg-secondary rounded-full'
 							)}
 							onClick={() => onUpdateParams(item.name)}
 						>
