@@ -16,6 +16,7 @@ import Link from 'next/link'
 import ModeToggle from '@/components/shared/mode-toggle'
 import GlobalSearch from './global-search'
 import useTranslate from '@/hooks/use-translate'
+import Notification from '@/components/shared/notification'
 
 function Mobile() {
 	const t = useTranslate()
@@ -48,6 +49,7 @@ function Mobile() {
 					))}
 					<LanguageDropdown isMobile />
 					<div className='flex items-center justify-center gap-4'>
+						<Notification />
 						<Button size={'icon'} variant={'ghost'}>
 							<ShoppingCart />
 						</Button>
