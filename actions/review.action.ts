@@ -152,7 +152,7 @@ export const getAdminReviews = async (params: GetPaginationParams) => {
 			})
 			.populate({
 				path: 'course',
-				select: 'fullName picture',
+				select: 'fullName picture title',
 				model: Course,
 			})
 			.skip(skipAmount)
