@@ -1,7 +1,7 @@
-import { ChildProps } from '@/types'
+import React from 'react'
 import Navbar from '../(root)/_components/navbar'
 
-function Layout({ children }: ChildProps) {
+function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<main>
 			<Navbar />
