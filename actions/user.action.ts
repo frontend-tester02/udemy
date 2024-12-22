@@ -60,6 +60,7 @@ export const getUser = async (clerkId: string) => {
 			'fullName picture clerkId email role isAdmin'
 		)
 
+		if (!user) return 'notFound'
 		return JSON.parse(JSON.stringify(user))
 	} catch (error) {
 		throw new Error('Something went wrong!')
