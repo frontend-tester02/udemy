@@ -78,12 +78,21 @@ function Navbar() {
 					</SignedIn>
 					<SignedOut>
 						<SignInButton mode='modal'>
-							<Button size={'lg'} className='hidden rounded-full md:flex'>
+							<Button
+								size={'lg'}
+								className='hidden rounded-full md:flex'
+								aria-label='login'
+							>
 								{t('logIn')}
 							</Button>
 						</SignInButton>
 						<SignInButton mode='modal'>
-							<Button size={'icon'} variant={'ghost'} className='md:hidden'>
+							<Button
+								size={'icon'}
+								variant={'ghost'}
+								className='md:hidden'
+								aria-label='login'
+							>
 								<LogIn />
 							</Button>
 						</SignInButton>
