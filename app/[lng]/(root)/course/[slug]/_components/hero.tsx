@@ -32,7 +32,7 @@ function Hero(course: ICourse) {
 
 		const promise = getFreeLesson(course._id)
 			.then(data => {
-				if (data.length === 0) return toast.error(t('noFound'))
+				if (data.length === 0) return toast.error(t('notFound'))
 				setLessons(data)
 				setLesson(data[0])
 				setOpen(true)
