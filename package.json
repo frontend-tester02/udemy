@@ -29,6 +29,7 @@
     "@stripe/react-stripe-js": "^2.8.1",
     "@stripe/stripe-js": "^4.9.0",
     "@tinymce/tinymce-react": "^5.1.1",
+    "@u-wave/react-vimeo": "^0.9.12",
     "@vimeo/player": "^2.24.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
