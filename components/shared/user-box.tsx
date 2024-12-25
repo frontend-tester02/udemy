@@ -19,11 +19,12 @@ function UserBox() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Avatar className='size-10 cursor-pointer' aria-label='User'>
+				<Avatar className='size-10 cursor-pointer'>
 					<AvatarImage
 						src={user?.picture}
 						className='object-cover'
 						alt={user?.fullName}
+						aria-label='User picture'
 					/>
 				</Avatar>
 			</DropdownMenuTrigger>
@@ -41,7 +42,7 @@ function UserBox() {
 					<div className='flex items-center gap-x-2'>
 						<div className='rounded-md bg-secondary'>
 							<Avatar className='size-10'>
-								<AvatarImage src={user?.picture} />
+								<AvatarImage src={user?.picture} aria-label='User picture' />
 							</Avatar>
 						</div>
 
