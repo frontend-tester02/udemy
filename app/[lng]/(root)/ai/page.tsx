@@ -34,6 +34,7 @@ function Page() {
 									className='justify-start gap-2 font-spaceGrotesk font-bold'
 									variant={status === item.status ? 'default' : 'secondary'}
 									onClick={() => setStatus(item.status)}
+									aria-label={t(item.label)}
 								>
 									{item.icon}
 									<span>{t(item.label)}</span>

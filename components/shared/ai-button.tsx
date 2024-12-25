@@ -9,8 +9,9 @@ function AiButton() {
 			className='fixed bottom-5 right-5 size-12 rounded-full text-white'
 			size={'icon'}
 			asChild
+			aria-label='Open AI'
 		>
-			<Link href={'/ai'}>
+			<Link href={'/ai'} aria-label='Open AI'>
 				<Bot />
 			</Link>
 		</Button>

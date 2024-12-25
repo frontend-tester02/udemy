@@ -78,6 +78,7 @@ function ImageGenerator() {
 										onClick={() => window.open(src)}
 										variant={'secondary'}
 										className='w-full'
+										aria-label='Download'
 									>
 										<Download className='mr-2 size-4' />
 										Download
@@ -168,7 +169,12 @@ function ImageGenerator() {
 								)}
 							/>
 							<div className='flex gap-2'>
-								<Button type='submit' disabled={isLoading} size={'icon'}>
+								<Button
+									type='submit'
+									disabled={isLoading}
+									size={'icon'}
+									aria-label='Send'
+								>
 									<Send />
 								</Button>
 
@@ -178,6 +184,7 @@ function ImageGenerator() {
 									size={'icon'}
 									variant={'destructive'}
 									onClick={() => setPhotos([])}
+									aria-label='Close'
 								>
 									<X />
 								</Button>

@@ -19,7 +19,7 @@ function UserBox() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Avatar className='size-10 cursor-pointer'>
+				<Avatar className='size-10 cursor-pointer' aria-label='User'>
 					<AvatarImage
 						src={user?.picture}
 						className='object-cover'
@@ -55,7 +55,7 @@ function UserBox() {
 
 				<DropdownMenuSeparator />
 				{user?.isAdmin && (
-					<Link href={'/admin'}>
+					<Link href={'/admin'} aria-label='Admin'>
 						<DropdownMenuItem className='w-full cursor-pointer text-muted-foreground'>
 							{t('admin')}
 						</DropdownMenuItem>
@@ -63,14 +63,14 @@ function UserBox() {
 				)}
 
 				{user?.role === 'instructor' && (
-					<Link href={'/instructor'}>
+					<Link href={'/instructor'} aria-label='Instructor'>
 						<DropdownMenuItem className='w-full cursor-pointer text-muted-foreground'>
 							{t('instructor')}
 						</DropdownMenuItem>
 					</Link>
 				)}
 
-				<Link href={'/profile'}>
+				<Link href={'/profile'} aria-label='Profile'>
 					<DropdownMenuItem className='w-full cursor-pointer text-muted-foreground'>
 						{t('manageAccount')}
 					</DropdownMenuItem>

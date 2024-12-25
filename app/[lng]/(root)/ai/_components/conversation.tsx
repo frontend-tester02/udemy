@@ -102,7 +102,12 @@ function Conversation() {
 						/>
 
 						<div className='flex gap-2'>
-							<Button type='submit' disabled={isLoading} size={'icon'}>
+							<Button
+								type='submit'
+								disabled={isLoading}
+								size={'icon'}
+								aria-label='Send'
+							>
 								<Send />
 							</Button>
 
@@ -112,6 +117,7 @@ function Conversation() {
 								size={'icon'}
 								variant={'destructive'}
 								onClick={() => setMessages([])}
+								aria-label='Clear'
 							>
 								<X />
 							</Button>
