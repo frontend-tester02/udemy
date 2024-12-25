@@ -9,6 +9,7 @@ import { ClerkProvider } from '@clerk/nextjs'
 import { localization } from '@/lib/utils'
 import { Toaster } from '@/components/ui/sonner'
 import NextTopLoader from 'nextjs-toploader'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const roboto = Roboto({
 	subsets: ['latin', 'cyrillic'],
@@ -84,6 +85,7 @@ function RootLayout({ children, params: { lng } }: Props) {
 						{children}
 					</ThemeProvider>
 				</body>
+				<GoogleAnalytics gaId='G-JSZK2JE97Q' />
 			</html>
 		</ClerkProvider>
 	)
