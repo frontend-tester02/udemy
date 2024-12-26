@@ -86,7 +86,7 @@ function Hero(course: ICourse) {
 				</div>
 			</div>
 
-			<div className='relative h-96 w-full'>
+			<div className='relative h-96 w-full max-md:h-64'>
 				<CustomImage
 					src={course.previewImage}
 					alt='course'

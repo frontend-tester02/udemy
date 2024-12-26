@@ -68,7 +68,7 @@ async function Page({ params: { lng, slug } }: Props) {
 
 	return (
 		<>
-			<TopBar label='allCourses' extra='Full courses ReactJS' />
+			<TopBar label='allCourses' extra={course.title} />
 
 			<div className='container mx-auto max-w-6xl'>
 				<div className='grid grid-cols-3 gap-4 pt-12'>
