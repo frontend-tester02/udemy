@@ -27,22 +27,20 @@ export async function generateStaticParams() {
 	return languages.map(lng => ({ lng }))
 }
 export const metadata: Metadata = {
-	metadataBase: new URL('https://shokh-udemy.vercel.app'),
+	metadataBase: new URL('https://udemy.shoky.dev'),
 	title: 'Udemy',
 	description:
 		'Udemy, Programming courses, startup projects and best qualitiy eduaction',
-	authors: [
-		{ name: 'Nuriddinov Shokhrukh', url: 'https://shokh-udemy.vercel.app' },
-	],
+	authors: [{ name: 'Nuriddinov Shokhrukh', url: 'https://udemy.shoky.dev' }],
 	icons: { icon: '/logo.svg' },
 	openGraph: {
 		title: 'Udemy | Udemy courses',
 		description:
 			'Udemy, Programming courses, startup projects and best qualitiy eduaction',
 		type: 'website',
-		url: 'https://shokh-udemy.vercel.app',
+		url: 'https://udemy.shoky.dev',
 		locale: 'en_US',
-		images: 'https://media.graphassets.com/f4jkBWQ6SVaKwySKRNQT',
+		images: '/image.webp',
 		countryName: 'Uzbekistan',
 		siteName: 'Udemy',
 		emails: 'nuriddinovshokhrukh@gmail.com',
