@@ -46,6 +46,9 @@ function FeaturedCourses({ courses }: Props) {
 					<p className='text-sm text-muted-foreground'>
 						{t('exploreCoursesDescription')}
 					</p>
+					<p className='text-sm text-muted-foreground'>
+						There are only JavaScript and ReactJs courses
+					</p>
 				</div>
 
 				<div className='flex items-center gap-1 self-end max-md:mt-4 max-md:w-full max-md:rounded-full max-md:bg-primary max-md:p-2'>
