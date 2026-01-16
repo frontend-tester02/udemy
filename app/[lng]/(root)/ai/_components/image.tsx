@@ -23,9 +23,11 @@ import {
 import { amountOptions, resolutionOptions } from '@/constants'
 import { Card, CardFooter } from '@/components/ui/card'
 import CustomImage from '@/components/shared/custom-image'
+import { useParams } from 'next/navigation'
 
 function ImageGenerator() {
 	const [photos, setPhotos] = useState<string[]>([])
+	const { lng } = useParams()
 	const form = useForm<z.infer<typeof imageSchema>>({
 		resolver: zodResolver(imageSchema),
 		defaultValues: { prompt: '', amount: '1', resolution: '512x512' },
@@ -37,15 +39,30 @@ function ImageGenerator() {
 		try {
 			setPhotos([])
 
-			const response = await axios.post('/api/image', values)
+			const response = await axios.post(`/${lng}/api/image`, values)
 
-			const urls = response.data.map((image: { url: string }) => image.url)
-			setPhotos(urls)
+			// Check if response contains error
+			if (response.data.error) {
+				toast.error(response.data.message || response.data.error)
+				return
+			}
 
-			form.reset()
-		} catch (error) {
+			// Extract image URLs from response
+			if (Array.isArray(response.data) && response.data.length > 0) {
+				const urls = response.data.map((item: any) => item.url)
+				setPhotos(urls)
+				toast.success(`Generated ${urls.length} image(s) successfully!`)
+			} else {
+				toast.error('No images were generated')
+			}
+		} catch (error: any) {
 			console.error('API Request Error:', error)
-			toast.error(t('error'))
+			const errorMessage =
+				error?.response?.data?.message ||
+				error?.response?.data?.error ||
+				error?.message ||
+				t('error')
+			toast.error(errorMessage)
 		} finally {
 			form.reset()
 		}
