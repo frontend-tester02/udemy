@@ -10,6 +10,7 @@ import { localization } from '@/lib/utils'
 import { Toaster } from '@/components/ui/sonner'
 import NextTopLoader from 'nextjs-toploader'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 // import { GoogleAnalytics } from '@next/third-parties/google'
 
 const roboto = Roboto({
@@ -83,6 +84,7 @@ function RootLayout({ children, params: { lng } }: Props) {
 						<Toaster position='top-center' />
 						{children}
 						<Analytics />
+						<SpeedInsights />
 					</ThemeProvider>
 				</body>
 				{/* <GoogleAnalytics gaId='G-JSZK2JE97Q' /> */}
